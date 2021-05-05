@@ -9,8 +9,7 @@ export function landing (){
     <p>ó</p>
     <h2>Ingresa con tu usuario</h2>`;
 
-    /*const landingView = document.createElement("select");
+    const landingView = document.createElement("section");
     landingView.innerHTML = htmlLanding;
-    return landingView;*/
+    return landingView;
 }
-console.log(htmlLanding);

@@ -17,5 +17,10 @@ export function singUp (){
   <h4>Ya tienes cuenta?</h4> <p id="getIn">Ingresa</p> 
   
  </section>`;
-return singUp;
+
+
+const SingUpView = document.createElement("section");
+SingUpView.innerHTML = singUp;
+    return SingUpView;
+
 }
