@@ -7,8 +7,8 @@ let container = document.getElementById("root");
 export const routing = (routes) => {
     container.innerHTML = "";
     switch(routes){
-        case "#/htmlLanding":
-            container.innerHTML = landing();
+        case "#/":
+            container.appendChild(landing());
             break;
         case "#/singUp":
             container.innerHTML = singUp ();
