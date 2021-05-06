@@ -13,7 +13,7 @@ export function logIn (){
             <input type="text">
             <input type="submit" value="Ingresar">
         </form>
-    <h4>Aún no tienes cuenta?</h4> <p id="singIn"><a href="#/singUp">Registrate</a></p> 
+    <h4>Aún no tienes cuenta?</h4> <p id="signIn"><a href="#/signUp">Registrate</a></p> 
     </section>`;
 
     const loginView = document.createElement("section");

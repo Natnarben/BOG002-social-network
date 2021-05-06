@@ -1,10 +1,10 @@
-export function singUp (){
-    const singUp = `
+export function signUp (){
+    const signUp = `
     <img src="../src/images/MeowBoxMarcaMorada.png" alt="">
  <h2>Crea tu cuenta</h2>
  <button > <img src="../src/images/google.png" alt=""> Crear con Google</button>
  <p>ó</p>
- <section id="formSingUp">
+ <section id="formSignUp">
   <form action="">
     <h3>Nombre:</h3>
     <input type="text">
@@ -20,8 +20,8 @@ export function singUp (){
  </section>`;
 
 
-const SingUpView = document.createElement("section");
-SingUpView.innerHTML = singUp;
-    return SingUpView;
+const SignUpView = document.createElement("section");
+SignUpView.innerHTML = signUp;
+    return SignUpView;
 
 }

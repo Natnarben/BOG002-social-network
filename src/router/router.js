@@ -1,5 +1,5 @@
 import{ landing } from "../views/landing.js";
-import{ singUp } from "../views/singUp.js";
+import{ signUp } from "../views/singUp.js";
 import {logIn} from "../views/logIn.js";
 
 
@@ -12,8 +12,8 @@ export const routing = (routes) => {
         case "#/":
             container.appendChild(landing());
             break;
-        case "#/singUp":
-            container.appendChild(singUp());
+        case "#/signUp":
+            container.appendChild(signUp());
             break;
         case '#/logIn':
             container.appendChild(logIn());

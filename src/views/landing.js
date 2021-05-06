@@ -5,7 +5,7 @@ export function landing (){
     <p>Personas con un gusto en común, los gatitos.</p>
     <img src="../src/images/meowBoxCabeza.png" alt="">
     <p>Haz parte de nuestra comunidad</p>
-    <h2> <a href="#/singUp">Crea tu cuenta fácil y rapido</a></h2>
+    <h2> <a href="#/signUp">Crea tu cuenta fácil y rapido</a></h2>
     <p>ó</p>
     <h2><a href= "#/logIn">Ingresa con tu usuario</a></h2>`;
 
