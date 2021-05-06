@@ -11,10 +11,11 @@ export function singUp (){
     <h3>Correo:</h3>
     <input type="text">
     <h3>Contraseña:</h3>
+    <input type="text">
     <input type="submit" value="resgistrarse">
   </form>
 
-  <h4>Ya tienes cuenta?</h4> <p id="getIn">Ingresa</p> 
+  <h4>Ya tienes cuenta?</h4> <p id="getIn"><a href="#/logIn">Ingresa</a></p> 
   
  </section>`;
 

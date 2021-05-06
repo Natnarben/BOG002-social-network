@@ -1,5 +1,6 @@
 import{ landing } from "../views/landing.js";
 import{ singUp } from "../views/singUp.js";
+import {logIn} from "../views/logIn.js";
 
 
 let container = document.getElementById("root");
@@ -14,8 +15,9 @@ export const routing = (routes) => {
         case "#/singUp":
             container.appendChild(singUp());
             break;
-        case '#/timeline':
-            return console.log('hola');
+        case '#/logIn':
+            container.appendChild(logIn());
+            break;
          default:
             console.log('error!');
     }
