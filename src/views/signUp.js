@@ -4,14 +4,14 @@ export function signUp() {
  <h2>Crea tu cuenta</h2>
  <button > <img src="../src/images/google.png" alt=""> Crear con Google</button>
  <p>ó</p>
- <section id="formSignUp">
-  <form action="">
-    <h3>Nombre:</h3>
+ <section id="sectionformSignUp">
+  <form action="" id="formSignUp">
+    <label for="nameRegister">Nombre:</label>
     <input type="text">
-    <h3>Correo:</h3>
-    <input type="text">
-    <h3>Contraseña:</h3>
-    <input type="text">
+    <label for="emailRegister">Correo:</label>
+    <input type="text" id="emailRegister">
+    <label for="passwordRegister">Contraseña:</label>
+    <input type="text" id="passwordRegister">
     <input type="submit" value="resgistrarse">
   </form>
 

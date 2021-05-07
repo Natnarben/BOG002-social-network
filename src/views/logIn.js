@@ -4,8 +4,8 @@ export function logIn() {
     <h2>¡Bienvenido de vuelta!</h2>
     <button > <img src="../src/images/google.png" alt=""> Continuar con Google</button>
     <p>ó</p>
-    <section id="formSingUp">
-        <form action="">
+    <section id="sectionformlogIn">
+        <form id="formLogIn" action="">
             <h3>Correo:</h3>
             <input type="text">
             <h3>Contraseña:</h3>

@@ -18,6 +18,6 @@ export const routing = (routes) => {
       container.appendChild(logIn());
       break;
     default:
-     console.log('error!');
+      console.log('error!');
   }
 };
