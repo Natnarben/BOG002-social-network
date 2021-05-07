@@ -1,5 +1,5 @@
-export function signUp (){
-    const signUp = `
+export function signUp() {
+  const signUpHtml = `
     <img src="../src/images/MeowBoxMarcaMorada.png" alt="">
  <h2>Crea tu cuenta</h2>
  <button > <img src="../src/images/google.png" alt=""> Crear con Google</button>
@@ -19,9 +19,7 @@ export function signUp (){
   
  </section>`;
 
-
-const SignUpView = document.createElement("section");
-SignUpView.innerHTML = signUp;
-    return SignUpView;
-
+  const SignUpView = document.createElement('section');
+  SignUpView.innerHTML = signUpHtml;
+  return SignUpView;
 }

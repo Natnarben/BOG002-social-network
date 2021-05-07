@@ -1,6 +1,5 @@
-export function landing (){
-
-    const htmlLanding = `
+export function landing() {
+  const htmlLanding = `
     <img src="../src/images/meowBoxMarcaBlanca.png" alt="">
     <p>Personas con un gusto en común, los gatitos.</p>
     <img src="../src/images/meowBoxCabeza.png" alt="">
@@ -9,7 +8,7 @@ export function landing (){
     <p>ó</p>
     <h2><a href= "#/logIn">Ingresa con tu usuario</a></h2>`;
 
-    const landingView = document.createElement("section");
-    landingView.innerHTML = htmlLanding;
-    return landingView;
+  const landingView = document.createElement('section');
+  landingView.innerHTML = htmlLanding;
+  return landingView;
 }

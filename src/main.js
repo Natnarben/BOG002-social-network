@@ -2,8 +2,9 @@
 
 import { routing } from './router/router.js';
 
-
-window.addEventListener("hashchange",() =>{
-    routing(window.location.hash);
-})
+window.addEventListener('hashchange', () => {
+  routing(window.location.hash);
+});
 routing('#/');
+
+// console.log(firebase);

@@ -1,6 +1,5 @@
-export function logIn (){
-
-    const htmlLogin = `
+export function logIn() {
+  const htmlLogin = `
     <img src="../src/images/MeowBoxMarcaMorada.png" alt="">
     <h2>¡Bienvenido de vuelta!</h2>
     <button > <img src="../src/images/google.png" alt=""> Continuar con Google</button>
@@ -16,7 +15,7 @@ export function logIn (){
     <h4>Aún no tienes cuenta?</h4> <p id="signIn"><a href="#/signUp">Registrate</a></p> 
     </section>`;
 
-    const loginView = document.createElement("section");
-    loginView.innerHTML = htmlLogin;
-    return loginView;
+  const loginView = document.createElement('section');
+  loginView.innerHTML = htmlLogin;
+  return loginView;
 }
