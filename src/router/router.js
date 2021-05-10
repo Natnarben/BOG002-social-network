@@ -8,7 +8,7 @@ export const routing = (routes) => {
   container.innerHTML = '';
   // console.log(routes);
   switch (routes) {
-    case '#/':
+    case '#/landing':
       container.appendChild(landing());
       break;
     case '#/signUp':
