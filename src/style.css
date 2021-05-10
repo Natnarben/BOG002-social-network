@@ -1,0 +1,32 @@
+/*@media screen and  (max-width: 800px){
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   }
+}*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+    
+.landingClass{
+    background: url(../src/images/fondoLanding.jpg);
+    width: 100%;
+    height: 100vh;
+    color:#ffffff;
+}
+    
+.divLanding{
+    position: center;
+    margin: auto auto;
+    width: 25%;
+    text-align: center;
+}
+
+.signUpClass{
+    width: 100%;
+}
