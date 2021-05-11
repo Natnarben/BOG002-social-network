@@ -3,7 +3,6 @@
 import { routing } from './router/router.js';
 import { registerUser } from './firebase/firebaseAuth.js';
 
-
 window.addEventListener('hashchange', () => {
   routing(window.location.hash);
 });
