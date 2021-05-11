@@ -3,16 +3,16 @@ export function signUp() {
   <div class="divSignUp">
     <img src="../src/images/MeowBoxMarcaMorada.png" alt="logo" width="50%" height="50%">
     <h2>Crea tu cuenta</h2>
-    <button > <img src="../src/images/google.png" alt="googlelogo"width="10%" height="20%"> Crear con Google</button>
+    <button > <img src="../src/images/google.png" alt="googlelogo"width="5%" height="5%"> Crear con Google</button>
     <p>ó</p>
-    <section id="formSignUp">
-    <form action="">
+    <section id="sectionFormSignUp">
+    <form id="formSignUp">
       <h3>Nombre:</h3>
-      <input type="text">
+      <input type="text" id="nameRegister">
       <h3>Correo:</h3>
-      <input type="text">
+      <input type="text" id="emailRegister">
       <h3>Contraseña:</h3>
-      <input type="text">
+      <input type="text" id="passwordRegister>
       <input type="submit" value="resgistrarse">
     </form>
 

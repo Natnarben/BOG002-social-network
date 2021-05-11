@@ -1,8 +1,8 @@
 export function logIn() {
   const htmlLogin = `
-    <img src="../src/images/MeowBoxMarcaMorada.png" alt="">
+    <img src="../src/images/MeowBoxMarcaMorada.png" alt="logoMeowBox" width="20%">
     <h2>¡Bienvenido de vuelta!</h2>
-    <button > <img src="../src/images/google.png" alt=""> Continuar con Google</button>
+    <button > <img src="../src/images/google.png" alt="googleLogo" width="5%"> Continuar con Google</button>
     <p>ó</p>
     <section id="sectionformlogIn">
         <form id="formLogIn" action="">
