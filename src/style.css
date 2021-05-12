@@ -30,3 +30,10 @@
 .signUpClass{
     width: 100%;
 }
+
+.divSignUp{
+    position: center;
+    margin: auto auto;
+    width: 50%;
+    text-align: center; 
+}

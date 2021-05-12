@@ -1,7 +1,7 @@
-export const registerUser = (name, email, password) => {
+export const registerUser = ( email, password) => {
   firebase
     .auth()
-    .signInWithEmailAndPassword(name, email, password)
+    .createUserWithEmailAndPassword( email, password)
     .then((userCredential) => {
     // Signed in
     // let user = userCredential.user;

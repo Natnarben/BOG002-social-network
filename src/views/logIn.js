@@ -1,8 +1,9 @@
 export function logIn() {
   const htmlLogin = `
+  <div
     <img src="../src/images/MeowBoxMarcaMorada.png" alt="logoMeowBox" width="20%">
     <h2>¡Bienvenido de vuelta!</h2>
-    <button > <img src="../src/images/google.png" alt="googleLogo" width="5%"> Continuar con Google</button>
+    <button > <img src="../src/images/google.png" alt="googleLogo"  "width="40px" height="40px"> Continuar con Google</button>
     <p>ó</p>
     <section id="sectionformlogIn">
         <form id="formLogIn" action="">
@@ -13,7 +14,8 @@ export function logIn() {
             <input type="submit" value="Ingresar">
         </form>
     <h4>Aún no tienes cuenta?</h4> <p id="signIn"><a href="#/signUp">Registrate</a></p> 
-    </section>`;
+    </section>
+    </div>`;
 
   const loginView = document.createElement('section');
   loginView.innerHTML = htmlLogin;

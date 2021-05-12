@@ -1,23 +1,26 @@
-import { landing } from '../views/landing.js';
-import { signUp } from '../views/signUp.js';
-import { logIn } from '../views/logIn.js';
+import { landing } from "../views/landing.js";
+import { signUp, signUpEvent } from "../views/signUp.js";
+import { logIn } from "../views/logIn.js";
 
-const container = document.getElementById('root');
+
+const container = document.getElementById("root");
 
 export const routing = (routes) => {
-  container.innerHTML = '';
+  container.innerHTML = "";
   // console.log(routes);
   switch (routes) {
-    case '#/':
+    case "":
       container.appendChild(landing());
       break;
-    case '#/signUp':
+    case "#/signUp":
       container.appendChild(signUp());
+      signUpEvent();
+    
       break;
-    case '#/logIn':
+    case "#/logIn":
       container.appendChild(logIn());
       break;
     default:
-      console.log('error!');
+      console.log("error!");
   }
 };
