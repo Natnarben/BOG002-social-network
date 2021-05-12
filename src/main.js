@@ -2,7 +2,6 @@
 
 import { routing } from './router/router.js';
 
-
 window.addEventListener('hashchange', () => {
   routing(window.location.hash);
 });

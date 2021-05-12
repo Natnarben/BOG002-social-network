@@ -11,7 +11,7 @@ export function logIn() {
             <input type="text">
             <h3>Contraseña:</h3>
             <input type="text">
-            <input type="submit" value="Ingresar">
+            <button type="submit"> Ingresar </button>
         </form>
     <h4>Aún no tienes cuenta?</h4> <p id="signIn"><a href="#/signUp">Registrate</a></p> 
     </section>
