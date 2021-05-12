@@ -13,7 +13,7 @@ export function signUp() {
       <input type="text" id="emailRegister">
       <h3>Contraseña:</h3>
       <input type="text" id="passwordRegister>
-      <input type="submit" value="resgistrarse">
+      <button>hola!</button>
     </form>
 
     <h4>Ya tienes cuenta?</h4> <p id="getIn"><a href="#/logIn">Ingresa</a></p> 
