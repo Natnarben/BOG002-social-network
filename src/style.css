@@ -31,9 +31,17 @@
     width: 100%;
 }
 
-.divSignUp{
+.divSignUp {
     position: center;
     margin: auto auto;
-    width: 50%;
+    width: 100%;
     text-align: center; 
 }
+
+.divLogIn{
+    position: center;
+    margin: auto auto;
+    width: 100%;
+    text-align: center; 
+}
+
