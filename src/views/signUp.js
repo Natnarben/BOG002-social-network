@@ -1,4 +1,4 @@
-import { registerUser } from "../firebase/firebaseAuth.js";
+// import { registerUser } from "../firebase/firebaseAuth.js";
 
 export function signUp() {
   const signUpHtml = `
@@ -15,6 +15,8 @@ export function signUp() {
       <h3>Contraseña:</h3>
       <input type="text" id="passwordRegister">
       <br>
+      <p class="error"></p>
+      <br>
       <input type="submit" value="Registrarse">
     </form>
 
@@ -23,22 +25,34 @@ export function signUp() {
     </section>
   </div>`;
 
-  const signUpView = document.createElement('section');
-  signUpView.className = 'signUpClass';
+  const signUpView = document.createElement("section");
+  signUpView.className = "signUpClass";
   signUpView.innerHTML = signUpHtml;
   return signUpView;
 }
 
-export function signUpEvent(){
+export function signUpEvent() {
   const formRegister = document.getElementById("formSignUp");
 
   formRegister.addEventListener("submit", (event) => {
-   
     const emailRegister = document.getElementById("emailRegister").value;
-    const passwordRegister =
-      document.getElementById("passwordRegister").value;
-    event.preventDefault();
-    registerUser( emailRegister, passwordRegister);
+    const passwordRegister = document.getElementById("passwordRegister").value;
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(emailRegister, passwordRegister)
+      .then((userCredential) => {
+        // Signed in
+        // let user = userCredential.user;
+        console.log(userCredential.user);
+        formRegister.reset();
+       
+        // ...
+      })
+      .catch((error) => {
+        formRegister.querySelector(".error").textContent = error.message;
+      });
+    // event.preventDefault();
+    // registerUser(emailRegister, passwordRegister);
+  
   });
-
 }
