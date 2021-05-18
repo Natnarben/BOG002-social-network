@@ -21,6 +21,7 @@ export function logIn() {
         <input type="submit" value="Ingresar" class="signup-button">
       </form>
     </section>
+    <br>
     <div class="redirecting">
       <h4>¿Aún no tienes cuenta?</h4> <p id="signIn"><a href="#/signUp">Registrate</a></p> 
     </div>   
