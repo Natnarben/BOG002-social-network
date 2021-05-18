@@ -1,14 +1,16 @@
-// import { registerUser } from "../firebase/firebaseAuth.js";
+import { registerUser,  googleAuth } from "../firebase/firebaseAuth.js";
 
 export function signUp() {
   const signUpHtml = `
   <div class="divSignUp">
     <img src="../src/images/MeowBoxMarcaMorada.png" alt="logo" width="20%" height="20%">
     <h2>Crea tu cuenta</h2>
-    <button id="googleLogin" > <img src="../src/images/google.png" alt="googlelogo "width="40px" height="40px"> Crear con Google</button>
+    <button id="googleLogIn"> <img src="../src/images/google.png" alt="googlelogo "width="40px" height="40px" > Crear con Google</button>
     <p>ó</p>
     <section id="sectionFormSignUp">
     <form id="formSignUp">
+      <h3>Nombre:</h3>
+      <input type="text" id="name">
      
       <h3>Correo:</h3>
       <input type="text" id="emailRegister">
@@ -36,41 +38,40 @@ export function signUpEvent() {
   formRegister.addEventListener("submit", (event) => {
     const emailRegister = document.getElementById("emailRegister").value;
     const passwordRegister = document.getElementById("passwordRegister").value;
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(emailRegister, passwordRegister)
-      .then((userCredential) => {
-        // Signed in
-        // let user = userCredential.user;
-        console.log(userCredential.user);
-        formRegister.reset();
-
-        // ...
-      })
-      .catch((error) => {
-        formRegister.querySelector(".error").textContent = error.message;
-      });
-    // event.preventDefault();
-    // registerUser(emailRegister, passwordRegister);
+    event.preventDefault();
+    registerUser(emailRegister, passwordRegister).then((result) => {
+      if(result.error){
+        document.querySelector(".error").innerHTML = result.message;
+      }
+    });
+    
   });
 
   //Google Login
-  const googleButton = document.getElementById("googleLogin");
-  googleButton.addEventListener("click", (event) => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth
-      .signInWithRedirect(provider)
-      .then((result) => {
-        console.log(result);
-       // console.log("todo salio bien");
 
-        // var token = credential.accessToken;
-        // var user = result.user;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const googleRegister = document.getElementById('googleLogIn');
+  googleRegister.addEventListener('click', (event) => {
+    event.preventDefault();
+    googleAuth();
+    formRegister.reset();
+  });
+
+  // const googleButton = document.getElementById("googleLogin");
+  // googleButton.addEventListener("click", (event) => {
+  //   const provider = new firebase.auth.GoogleAuthProvider();
+  //   auth
+  //     .signInWithRedirect(provider)
+  //     .then((result) => {
+  //       console.log(result);
+  //      // console.log("todo salio bien");
+
+  //       // var token = credential.accessToken;
+  //       // var user = result.user;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
      
 
-  });
+  // });
 }
