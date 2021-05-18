@@ -1,47 +1,129 @@
-/*@media screen and  (max-width: 800px){
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   }
-}*/
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans SC', sans-serif;
 }
-    
+
 .landingClass{
-    background: url(../src/images/fondoLanding.jpg);
-    width: 100%;
-    height: 100vh;
+    background: url(../src/images/backgroundLanding2.png) no-repeat;
+    background-position: center bottom ;
+    background-size: cover;
+    height: 890px;
     color:#ffffff;
-}
+    background-attachment: scroll;
+    
+}   
     
 .divLanding{
-    position: center;
-    margin: auto auto;
-    width: 25%;
+    height: 890px;
     text-align: center;
-}
-
-.signUpClass{
-    width: 100%;
+    
 }
 
 .divSignUp {
-    position: center;
-    margin: auto auto;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center; 
 }
 
-.divLogIn{
-    position: center;
-    margin: auto auto;
-    width: 100%;
+.divLogIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center; 
 }
 
+
+.forms{
+    width: 300px;
+    height: 250px;
+    padding: 45px 35px 35px 35px;
+    border-radius: 35px;
+    background: #ecf0f3;
+    box-shadow: 13px 13px 20px #a78de4,
+                -13px -13px 20px #ffffff;
+}
+
+.fields{
+    width: 100%;
+    
+}
+
+.fields input{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    color: #555;
+    padding: 0px 5px 10px 5px;
+}
+ .user-mail, .password{
+     margin-bottom: 5px;
+     border-radius: 30px;
+     box-shadow: inset 5px 5px 5px #cbcde1,
+                inset -5px -5px 5px #d6c4f8;
+                
+ }
+
+
+ .svg-icon {
+    margin: 0 0px -28px 160px;
+    width: 1em;
+    height: 1em;
+  }
+  
+  .svg-icon path,
+  .svg-icon polygon,
+  .svg-icon rect {
+    fill: #8446f6;
+  }
+  
+  .svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+  }
+
+  .signup-button{
+      outline: none;
+      border: none;
+      cursor: pointer;
+      width: 70%;
+      height: 35px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      color: rgb(255, 255, 255);
+      text-align: center;
+      background: rgb(104, 76, 158);
+      box-shadow: 3px 3px 8px grey,
+                -3px -3px 8px #ffffff;
+    transition: 0.5s;
+  }
+
+  .signup-button:hover {
+      background: rgb(63, 66, 245);
+  }
+  .signup-button:active {
+    background: rgb(78, 10, 187);
+}
+.redirecting{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+}
+
+.googleLogin{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: rgb(58, 58, 59);
+    background-color: seashell;
+    font-weight: 600;
+}
+
+.titles{
+    color:rgb(58, 58, 59) ;
+}
