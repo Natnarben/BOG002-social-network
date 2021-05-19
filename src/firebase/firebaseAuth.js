@@ -1,24 +1,29 @@
-const auth = firebase.auth();
+// const auth = firebase.auth();
 
 export const registerUser = (email, password) => {
-  auth.createUserWithEmailAndPassword(email, password)
+  const promesa = firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    // eslint-disable-next-line arrow-body-style
     .then((userCredential) => {
-    // Signed in
-    // let user = userCredential.user;
-      console.log(userCredential.user);
-    // ...
+      return userCredential;
     })
     .catch((error) => {
-      // let errorCode = error.code;
-      // let errorMessage = error.message;
-      console.log('error 404!!!', error.message);
-      // formRegister.querySelector('.error').textContent = error.message;
+      // eslint-disable-next-line no-unused-vars
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      return {
+        error: true,
+        message: errorMessage,
+      };
     });
+  return promesa;
 };
 
 export function googleAuth() {
   const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithRedirect(provider)
+  firebase.auth()
+    .signInWithRedirect(provider)
     .then((result) => {
       console.log(result);
       console.log('google sign in');

@@ -42,7 +42,11 @@ export function signUpEvent() {
     const emailRegister = document.getElementById('emailRegister').value;
     const passwordRegister = document.getElementById('passwordRegister').value;
     event.preventDefault();
-    registerUser(emailRegister, passwordRegister);
+    registerUser(emailRegister, passwordRegister).then((result) => {
+      if (result.error) {
+        document.querySelector('.error').innerHTML = result.message;
+      }
+    });
   });
 
   const googleRegister = document.getElementById('googleLogIn');
