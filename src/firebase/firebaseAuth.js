@@ -1,4 +1,4 @@
-const auth = firebase.auth();
+//const auth = firebase.auth();
 
 export const registerUser = (email, password) => {
  const promesa = firebase
@@ -11,7 +11,7 @@ export const registerUser = (email, password) => {
       // ...
     })
     .catch((error) => {
-      let errorCode = error.code;
+     // let errorCode = error.code;
       const errorMessage = error.message;
       
       // console.log('error 404!!!', error.message);
@@ -27,7 +27,8 @@ export const registerUser = (email, password) => {
 
 export function googleAuth() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithRedirect(provider)
+    firebase
+    .auth.signInWithRedirect(provider)
       .then((result) => {
         console.log(result);
         console.log('google sign in');

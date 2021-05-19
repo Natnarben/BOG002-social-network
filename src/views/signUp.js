@@ -43,7 +43,7 @@ export function signUpEvent() {
       if(result.error){
         document.querySelector(".error").innerHTML = result.message;
       }
-    });
+    }); 
     
   });
 
