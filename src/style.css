@@ -38,9 +38,9 @@
 
 .forms{
     width: 300px;
-    height: 250px;
-    padding: 45px 35px 35px 35px;
-    border-radius: 35px;
+    height: 300px;
+    padding: 40px 35px 0px 35px;
+    border-radius: 15px;
     background: #ecf0f3;
     box-shadow: 13px 13px 20px #a78de4,
                 -13px -13px 20px #ffffff;
@@ -55,13 +55,13 @@
     border: none;
     outline: none;
     background: none;
-    font-size: 16px;
+    font-size: 13px;
     color: #555;
-    padding: 0px 5px 10px 5px;
+    padding: 0px 0px 0px 0px;
 }
  .user-mail, .password{
-     margin-bottom: 5px;
-     border-radius: 30px;
+     margin-bottom: 15px;
+     border-radius: 3px;
      box-shadow: inset 5px 5px 5px #cbcde1,
                 inset -5px -5px 5px #d6c4f8;
                 
@@ -69,7 +69,7 @@
 
 
  .svg-icon {
-    margin: 0 0px -28px 160px;
+    margin: 0 0px -15px 160px;
     width: 1em;
     height: 1em;
   }
@@ -89,10 +89,10 @@
       outline: none;
       border: none;
       cursor: pointer;
-      width: 70%;
+      width: 100%;
       height: 35px;
-      border-radius: 30px;
-      font-size: 18px;
+      border-radius: 3px;
+      font-size: 15px;
       font-weight: 700;
       color: rgb(255, 255, 255);
       text-align: center;
@@ -126,4 +126,9 @@
 
 .titles{
     color:rgb(58, 58, 59) ;
+}
+
+.error{
+    color: red;
+    font-size: 12px;
 }
