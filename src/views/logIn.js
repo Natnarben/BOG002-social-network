@@ -1,3 +1,6 @@
+import { loginUser } from '../firebase/firebaseAuth.js';
+
+
 export function logIn() {
   const htmlLogin = `
   <div class="divLogIn">
@@ -7,7 +10,7 @@ export function logIn() {
     <br>
     <p>ó</p>
     <br>
-    <section class="forms" id="sectionFormSignUp">  
+    <section class="forms" id="sectionFormLogin">  
       <form id="formLogIn">
         <div class="fields">
           <div class="user-mail"><svg class="svg-icon" viewBox="0 0 20 20">
@@ -41,3 +44,17 @@ export function logIn() {
 //     registerUser(emailRegister, passwordRegister);
 //   });
 // }
+
+// Login con método firebase
+export function logInEvent() {
+  const logInUser = document.getElementById('formLogIn');
+  logInUser.addEventListener('submit', (event) => {
+    event.preventDefault();
+    // obtener la información del usuario
+    const email = document.getElementById('emailLogIn').value; 
+    const password = document.getElementById('passwordLogIn').value; 
+    loginUser (email, password)
+    console.log("USUARIO INGRESO A LA RED SOCIAL")
+    
+});
+}
