@@ -1,3 +1,5 @@
+import { logInUser } from '../firebase/firebaseAuth.js';
+
 export function logIn() {
   const htmlLogin = `
   <div class="divLogIn">
@@ -12,7 +14,9 @@ export function logIn() {
             <h3>Contraseña:</h3>
             <input type="password" id="passwordLogIn">
             <br>
-            <input type="submit" value="Ingresar">
+            <p class="error"></p>
+      <br>
+            <input type="submit" value="Ingresar" id="submitButton">
         </form>
     <h4>Aún no tienes cuenta?</h4> <p id="signIn"><a href="#/signUp">Registrate</a></p> 
     </section>
@@ -23,12 +27,17 @@ export function logIn() {
   return loginView;
 }
 
-// export function logInEvent() {
-//   const formLogIn = document.getElementById('sectionformlogIn');
-//   formLogIn.addEventListener('submit', (event) => {
-//     const emailLogIn = document.getElementById('emailLogIn').value;
-//     const passwordLogIn = document.getElementById('passwordLogIn').value;
-//     event.preventDefault();
-//     registerUser(emailRegister, passwordRegister);
-//   });
-// }
+export function logInEvent() {
+  const formLogIn = document.getElementById('formLogIn');
+  formLogIn.addEventListener('submit', (event) => {
+    const emailLogIn = document.getElementById('emailLogIn').value;
+    const passwordLogIn = document.getElementById('passwordLogIn').value;
+    event.preventDefault();
+    console.log(emailLogIn, passwordLogIn);
+    logInUser(emailLogIn, passwordLogIn).then((result) => {
+      if (result.error) {
+        document.querySelector('.error').innerHTML = result.message;
+      }
+    });
+  });
+}

@@ -1,6 +1,6 @@
 import { landingPage } from '../views/landing.js';
-import { signUp, signUpEvent } from '../views/signUp.js';
-import { logIn } from '../views/logIn.js';
+import { signUp, signUpEvent, googleEvent } from '../views/signUp.js';
+import { logIn, logInEvent } from '../views/logIn.js';
 
 const container = document.getElementById('root');
 
@@ -14,9 +14,11 @@ export const routing = (routes) => {
     case '#/signUp':
       container.appendChild(signUp());
       signUpEvent();
+      googleEvent();
       break;
     case '#/logIn':
       container.appendChild(logIn());
+      logInEvent();
       break;
     default:
       console.log('error!');

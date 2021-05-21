@@ -29,19 +29,24 @@ export function signUp() {
   return signUpView;
 }
 
+export function googleEvent() {
+  const googleRegister = document.getElementById('googleLogIn');
+  googleRegister.addEventListener('click', () => {
+    googleAuth();
+  });
+}
+
 export function signUpEvent() {
   const formRegister = document.getElementById('formSignUp');
+
   formRegister.addEventListener('submit', (event) => {
     const emailRegister = document.getElementById('emailRegister').value;
     const passwordRegister = document.getElementById('passwordRegister').value;
     event.preventDefault();
-    registerUser(emailRegister, passwordRegister);
-  });
-
-  const googleRegister = document.getElementById('googleLogIn');
-  googleRegister.addEventListener('click', (event) => {
-    event.preventDefault();
-    googleAuth();
-    formRegister.reset();
+    registerUser(emailRegister, passwordRegister).then((result) => {
+      if (result.error) {
+        document.querySelector('.error').innerHTML = result.message;
+      }
+    });
   });
 }
