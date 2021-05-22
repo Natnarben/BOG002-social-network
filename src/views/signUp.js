@@ -1,4 +1,4 @@
-import { registerUser,  googleAuth } from "../firebase/firebaseAuth.js";
+import { registerUser, googleAuth } from "../firebase/firebaseAuth.js";
 
 export function signUp() {
   const signUpHtml = `
@@ -40,17 +40,16 @@ export function signUpEvent() {
     const passwordRegister = document.getElementById("passwordRegister").value;
     event.preventDefault();
     registerUser(emailRegister, passwordRegister).then((result) => {
-      if(result.error){
+      if (result.error) {
         document.querySelector(".error").innerHTML = result.message;
       }
-    }); 
-    
+    });
   });
 
   //Google Login
 
-  const googleRegister = document.getElementById('googleLogIn');
-  googleRegister.addEventListener('click', (event) => {
+  const googleRegister = document.getElementById("googleLogIn");
+  googleRegister.addEventListener("click", (event) => {
     event.preventDefault();
     googleAuth();
     formRegister.reset();
@@ -71,7 +70,6 @@ export function signUpEvent() {
   //     .catch((err) => {
   //       console.log(err);
   //     });
-     
 
   // });
 }

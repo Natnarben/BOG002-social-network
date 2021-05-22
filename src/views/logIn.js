@@ -1,3 +1,5 @@
+import { loginUser} from "../firebase/firebaseAuth.js";
+
 export function logIn() {
   const htmlLogin = `
   <div  class="divLogIn">
@@ -8,9 +10,11 @@ export function logIn() {
     <section id="sectionformlogIn">
         <form id="formLogIn" action="">
             <h3>Correo:</h3>
-            <input type="text">
+            <input id="emailLogin" type="text">
             <h3>Contraseña:</h3>
-            <input type="text">
+            <input id="passwordLogin" type="text">
+            <br>
+            <p class="loginError"></p>
             <br>
             <button type="submit"> Ingresar </button>
         </form>
@@ -21,4 +25,21 @@ export function logIn() {
   const loginView = document.createElement('section');
   loginView.innerHTML = htmlLogin;
   return loginView;
+}
+
+export function loginEvent() {
+  const formLogin = document.getElementById("formSignUp");
+
+  formLogin.addEventListener("submit", (event) => {
+    const emailRegister = document.getElementById("emailLogin").value;
+    const passwordRegister = document.getElementById("passwordLogin").value;
+    event.preventDefault();
+
+    loginUser (emailRegister, passwordRegister).then((result) => {
+      if (result.error) {
+        document.querySelector("loginError").innerHTML = result.message;
+      }
+    });
+   console.log("SI FUNCIONO")
+  });
 }
