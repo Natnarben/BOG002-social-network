@@ -7,8 +7,9 @@ export const registerUser = (email, password) => {
     .createUserWithEmailAndPassword(email, password)
     // eslint-disable-next-line arrow-body-style
     .then((userCredential) => {
-      // var user = userCredential.user;
-      console.log('USUARIO REGISTRADO');
+      const user = userCredential.user;
+      window.location.assign('#/timeLine');
+      console.log(user);
     })
     .catch((error) => {
       // eslint-disable-next-line no-unused-vars
@@ -29,22 +30,27 @@ export function googleAuth() {
     .auth()
     .signInWithRedirect(provider)
     .then((result) => {
+      // window.location.assign('#/timeLine');
       console.log(result);
-      console.log('google sign in');
+      // console.log('google sign in');
     })
     .catch((error) => {
       console.log(error.message);
     });
 }
-
+// LogIn con metodo signInWithEmailAndPassword de firebase
 export const loginUser = (email, password) => {
   const promesa = firebase
-    .auth().signInWithEmailAndPassword(email, password).then((credential) => {
-      console.log(credential.user);
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      window.location.assign('#/timeLine');
+      return user;
     })
     .catch((error) => {
       // eslint-disable-next-line no-unused-vars
-      const errorCode = error.code;
+      // const errorCode = error.code;
       const errorMessage = error.message;
       return {
         error: true,
