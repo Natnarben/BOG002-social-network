@@ -32,7 +32,9 @@ export function signUp() {
 export function googleEvent() {
   const googleRegister = document.getElementById('googleLogIn');
   googleRegister.addEventListener('click', () => {
+    // event.preventDefault;
     googleAuth();
+    // console.log('Soy un boton que funciona');
   });
 }
 
