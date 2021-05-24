@@ -1,10 +1,15 @@
-export function timeLine(){
+export function timeLine() {
     const htmlTimeLine = `
-    <p >Aqui van las publicaciones</p>
-    `
-
-    const timeLineView = document.createElement("section");
-    timeLineView.className = "timeLineClass";
-    timeLineView.innerHTML =  htmlTimeLine;
-    return timeLineView ;
-}
+    <section class="timelineSection">
+    <header class="header">
+      <span>Logo</span>
+      <span>Perfil</span>
+      <span class="logOut" href="#/logIn">Cerrar Sesión</span>      
+    </header>
+      <div class="publications"></div>
+      </section>`;
+  
+    const timeLineView = document.createElement('section');
+    timeLineView.innerHTML = htmlTimeLine;
+    return timeLineView;
+  }

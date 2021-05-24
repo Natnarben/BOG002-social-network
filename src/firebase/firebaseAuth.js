@@ -5,6 +5,7 @@ export const registerUser = (email, password) => {
     .auth()
     .createUserWithEmailAndPassword(email, password,)
     .then((userCredential) => {
+      window.location.assign("#/timeLine");
       // Signed in
       // let user = userCredential.user;
       return userCredential;
@@ -28,6 +29,7 @@ export const loginUser = (email, password) => {
      .auth()
      .signInWithEmailAndPassword(email, password,)
      .then((userCredential) => {
+      window.location.assign("#/timeLine");
        // Signed in
        // let user = userCredential.user;
        return userCredential;
@@ -50,15 +52,23 @@ export const loginUser = (email, password) => {
 
 export function googleAuth() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-    .auth().signInWithRedirect(provider)
+   const promesa = firebase
+    .auth().signInWithPopup(provider)
+
       .then((result) => {
+        window.location.assign("#/timeLine");
+       
         console.log(result);
         console.log('google sign in');
       })
       .catch((error) => {
-        console.log(error.message);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.email;
+        const credential = error.credential;
+        return error;
       });
+      return promesa;
     }
 
     

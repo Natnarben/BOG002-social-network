@@ -1,6 +1,6 @@
 import { landing } from "../views/landing.js";
-import { signUp, signUpEvent } from "../views/signUp.js";
-import { logIn } from "../views/logIn.js";
+import { signUp, signUpEvent, googleRegister } from "../views/signUp.js";
+import { logIn, loginEvent,  googleLogIn } from "../views/logIn.js";
 import { timeLine   } from "../views/timeLine.js";
 
 
@@ -16,10 +16,13 @@ export const routing = (routes) => {
     case "#/signUp":
       container.appendChild(signUp());
       signUpEvent();
+      googleRegister();
     
       break;
     case "#/logIn":
       container.appendChild(logIn());
+      loginEvent();
+      googleLogIn();
       break;
     case "#/timeLine":  
     container.appendChild(timeLine());
