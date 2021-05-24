@@ -57,6 +57,6 @@ export function signUpEvent() {
   googleRegister.addEventListener('click', (event) => {
     event.preventDefault();
     googleAuth();
-    // formRegister.reset();
+    formRegister.reset();
   });
 }
