@@ -36,12 +36,16 @@ export function signUp() {
   return signUpView;
 }
 
+/* function reset() {
+  document.getElementById('formSignUp').reset();
+} */
 export function signUpEvent() {
   const formRegister = document.getElementById('formSignUp');
   formRegister.addEventListener('submit', (event) => {
     const emailRegister = document.getElementById('emailRegister').value;
     const passwordRegister = document.getElementById('passwordRegister').value;
     event.preventDefault();
+    /* reset(); */
     registerUser(emailRegister, passwordRegister).then((result) => {
       if (result) {
         document.querySelector('.error').innerHTML = result.message;
@@ -53,6 +57,6 @@ export function signUpEvent() {
   googleRegister.addEventListener('click', (event) => {
     event.preventDefault();
     googleAuth();
-    formRegister.reset();
+    // formRegister.reset();
   });
 }

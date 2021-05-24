@@ -26,13 +26,14 @@ export const registerUser = (email, password) => {
 // Ingreso via Google con metodo firebase signInWithRedirect
 export function googleAuth() {
   const provider = new firebase.auth.GoogleAuthProvider();
+  console.log(provider);
   firebase
     .auth()
     .signInWithRedirect(provider)
     .then((result) => {
       // window.location.assign('#/timeLine');
       console.log(result);
-      // console.log('google sign in');
+      console.log('google sign in');
     })
     .catch((error) => {
       console.log(error.message);
