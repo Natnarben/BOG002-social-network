@@ -1,4 +1,4 @@
-import { registerUser, googleAuth } from "../firebase/firebaseAuth.js";
+import{ registerUser, googleAuth } from "../firebase/firebaseAuth.js";
 
 export function signUp() {
   const signUpHtml = `

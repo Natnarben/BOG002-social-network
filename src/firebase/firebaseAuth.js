@@ -1,8 +1,8 @@
-//const auth = firebase.auth();
+const auth = firebase.auth();
 
 export const registerUser = (email, password) => {
- const promesa = firebase
-    .auth()
+ const promesa = auth
+    
     .createUserWithEmailAndPassword(email, password,)
     .then((userCredential) => {
       window.location.assign("#/timeLine");
@@ -13,20 +13,21 @@ export const registerUser = (email, password) => {
     })
     .catch((error) => {
      // let errorCode = error.code;
-      const errorMessage = error.message;
+      const errorMessage = error.message ;
       
       // console.log('error 404!!!', error.message);
       return {
         error: true,
         message: errorMessage,
+       
       };
     });
    return promesa;
 };
 
 export const loginUser = (email, password) => {
-  const promesa = firebase
-     .auth()
+  const promesa = auth
+     
      .signInWithEmailAndPassword(email, password,)
      .then((userCredential) => {
       window.location.assign("#/timeLine");
@@ -52,8 +53,8 @@ export const loginUser = (email, password) => {
 
 export function googleAuth() {
     const provider = new firebase.auth.GoogleAuthProvider();
-   const promesa = firebase
-    .auth().signInWithPopup(provider)
+   const promesa = auth
+    .signInWithPopup(provider)
 
       .then((result) => {
         window.location.assign("#/timeLine");
@@ -69,6 +70,17 @@ export function googleAuth() {
         return error;
       });
       return promesa;
+    }
+
+    export function profileSignOut() {
+      auth.signOut().then(() => {
+        window.location.assign('');
+        // Sign-out successful.
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+        // An error happened.
+      });
     }
 
     

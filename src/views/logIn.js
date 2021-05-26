@@ -50,7 +50,7 @@ export function loginEvent() {
         document.querySelector(".error").innerHTML = result.message;
       }
     });
-    console.log("SI FUNCIONO");
+    
   });
 
  
