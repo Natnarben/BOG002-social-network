@@ -22,7 +22,7 @@ export function logIn() {
           </svg><input type="password" id="passwordLogIn" placeholder="Constraseña" required></div>          
         </div>   
         <br>
-        <input type="submit" value="Ingresar" class="signup-button" href="#/timeLine">
+        <input type="submit" value="Ingresar" class="signup-button" href="#/timeline">
       </form>
     </section>
     <br>
