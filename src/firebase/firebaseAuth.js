@@ -4,8 +4,29 @@ export const registerUser = (email, password) => {
   const promesa = firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    // eslint-disable-next-line arrow-body-style
     .then((userCredential) => {
+      window.location.assign('#/timeLine');
+      // Signed in
+      // let user = userCredential.user;
+      return userCredential;
+    })
+    .catch((error) => {
+      // let errorCode = error.code;
+      const errorMessage = error.message;
+      return {
+        error: true,
+        message: errorMessage,
+      };
+    });
+  return promesa;
+};
+
+export const loginUser = (email, password) => {
+  const promesa = firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      window.location.assign('#/timeLine');
       // Signed in
       // let user = userCredential.user;
       return userCredential;
@@ -25,25 +46,22 @@ export const registerUser = (email, password) => {
 
 export function googleAuth() {
   const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth()
-    .signInWithPopUp(provider)
+  const promesa = firebase
+    .auth().signInWithPopup(provider)
     .then((result) => {
-      const credential = result.credential;
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      console.log(token, user);
-    }).catch((error) => {
-    // Handle Errors here.
-      const errorCode = error.code;
+      window.location.assign('#/timeLine');
+      console.log(result);
+      console.log('google sign in');
+    })
+    .catch((error) => {
+      // const errorCode = error.code;
+      // eslint-disable-next-line no-unused-vars
       const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      const credential = error.credential;
-      console.log(errorCode, errorMessage, email, credential);
+      // const email = error.email;
+      // const credential = error.credential;
+      return error;
     });
+  return promesa;
 }
 
 export const logInUser = (email, password) => {
@@ -52,6 +70,7 @@ export const logInUser = (email, password) => {
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
     // Signed in
+      window.location.assign('#/timeLine');
       const user = userCredential.user;
       console.log(user);
     // ...
@@ -67,3 +86,14 @@ export const logInUser = (email, password) => {
     });
   return promesa;
 };
+
+export function signOut() {
+  firebase.auth().signOut().then(() => {
+    window.location.assign('#/logIn');
+    // Sign-out successful.
+  }).catch((error) => {
+    // eslint-disable-next-line no-console
+    console.log(error);
+    // An error happened.
+  });
+}

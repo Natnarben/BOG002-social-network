@@ -1,47 +1,160 @@
-/*@media screen and  (max-width: 800px){
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   }
-}*/
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans SC', sans-serif;
 }
-    
+
 .landingClass{
-    background: url(../src/images/fondoLanding.jpg);
-    width: 100%;
-    height: 100vh;
+    background: url(../src/images/backgroundLanding2.png) no-repeat;
+    background-position: center bottom ;
+    background-size: cover;
+    height: 890px;
     color:#ffffff;
-}
+    background-attachment: scroll;
+    
+}   
     
 .divLanding{
-    position: center;
-    margin: auto auto;
-    width: 25%;
+    height: 890px;
     text-align: center;
-}
-
-.signUpClass{
-    width: 100%;
+    
 }
 
 .divSignUp {
-    position: center;
-    margin: auto auto;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center; 
 }
 
-.divLogIn{
-    position: center;
-    margin: auto auto;
-    width: 100%;
+.divLogIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center; 
 }
 
+
+.forms{
+    width: 300px;
+    height: 300px;
+    padding: 40px 35px 0px 35px;
+    border-radius: 5px;
+    background: #ecf0f3;
+    box-shadow: 13px 13px 20px #a78de4,
+                -13px -13px 20px #ffffff;
+}
+
+.fields{
+    width: 100%;
+    
+}
+
+.fields input{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    color: #555;
+}
+ .user-mail, .password{
+    margin-bottom: 15px;
+    border-radius: 3px;
+    box-shadow: inset 5px 5px 5px #cbcde1,
+                inset -5px -5px 5px #d6c4f8;
+                
+ }
+
+
+ .svg-icon {
+    margin: 0 0px -15px 160px;
+    width: 1em;
+    height: 1em;
+  }
+  
+  .svg-icon path,
+  .svg-icon polygon,
+  .svg-icon rect {
+    fill: #8446f6;
+  }
+  
+  .svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+  }
+
+  .signup-button{
+      outline: none;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      height: 35px;
+      border-radius: 3px;
+      font-size: 15px;
+      font-weight: 700;
+      color: rgb(255, 255, 255);
+      text-align: center;
+      background: rgb(104, 76, 158);
+      box-shadow: 3px 3px 8px grey,
+                -3px -3px 8px #ffffff;
+    transition: 0.5s;
+  }
+
+  .signup-button:hover {
+      background: rgb(63, 66, 245);
+  }
+  .signup-button:active {
+    background: rgb(78, 10, 187);
+}
+.redirecting{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+}
+
+.googleLogin{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: rgb(58, 58, 59);
+    background-color: seashell;
+    font-weight: 600;
+}
+
+.titles{
+    color:rgb(58, 58, 59) ;
+}
+
+.error{
+    color: red;
+    font-size: 12px;
+}
+
+/*dropdown menu*/
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+  
+.dropdown:hover .dropdown-content {display: block;}
