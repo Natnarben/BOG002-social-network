@@ -1,4 +1,4 @@
-// import { signOut } from '../firebase/firebaseAuth.js';
+import { signOut } from '../firebase/firebaseAuth.js';
 
 export function timeLine() {
   const htmlTimeLine = `
@@ -22,10 +22,8 @@ export function timeLine() {
   timeLineView.innerHTML = htmlTimeLine;
   return timeLineView;
 }
-/*
+
 export function signOutEvent() {
   const logOut = document.getElementById('logOut');
   logOut.addEventListener('click', signOut());
 }
-
-  */
