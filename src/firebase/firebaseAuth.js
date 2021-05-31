@@ -1,5 +1,8 @@
 const auth = firebase.auth();
 
+// const db = firebase.firestore();
+
+
 export const registerUser = (email, password) => {
  const promesa = auth
     
@@ -83,4 +86,15 @@ export function googleAuth() {
       });
     }
 
-    
+//     //FIRESTORE//
+
+// export const savePublication = (publications) =>
+//   db.collection("publications").doc().set({
+//   publications
+// });
+
+// export const getPublication = () => 
+//   db.collection("publications").get();
+
+// export const onGetPublication = (callback) => 
+// db.collection("publications").onSnapshot(callback);

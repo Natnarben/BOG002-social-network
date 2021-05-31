@@ -1,4 +1,4 @@
-import {profileSignOut} from "../firebase/firebaseAuth.js"
+import {profileSignOut } from "../firebase/firebaseAuth.js"
 
 
 export function timeLine() {
@@ -16,18 +16,30 @@ export function timeLine() {
         </div>
       </div>
       
-      </section>`;
+      </section>
+      <form id="formPost">
+      <div>
+       <input id="inputPost" type="text" placeholder="Post" autofocus>
+      </div>
+      <div>
+        <button type="submit" id="btnPost">Publicar</button>
+      </div>
+      <div id="containerPublication"></div>
+      </form>
+    
+      `;
     const timeLineView = document.createElement('section');
     timeLineView.innerHTML = htmlTimeLine;
     return timeLineView;
   }
+
   
  export function signOut(){
        const logOut = document.getElementById("logOut");
        logOut.addEventListener("click", (event) => {
        
         event.preventDefault();
-        console.log("realizado");
+         console.log("realizado");
         profileSignOut();
        });
       
@@ -42,3 +54,48 @@ export function dropdownMenu() {
     console.log('Soy un boton que funciona');
   });
 }
+
+//Funcion para publicar//
+
+
+// export function eventPost(){
+
+//     const postButton = document.getElementById("formPost");
+//     const containerPublication = document.getElementById("containerPublication");
+
+//      //pintar publicaciones de firestore//
+
+//      window.addEventListener("DOMContentLoaded", async (event) =>{
+//        onGetPublication((querySnapshot)=>{
+//          containerPublication.innerHTML ="";
+//         querySnapshot.forEach(doc =>{
+//             console.log(doc.data())
+//             containerPublication.innerHTML += `<div>
+//             ${doc.data().publications}
+//             <div>
+//              <button class="btnEliminar">Eliminar</button>
+//              <button>Editar</button>
+//             </div>
+//             </div> `})
+//          })
+      
+//     })
+
+//      postButton.addEventListener("submit", async (event) => {
+//       event.preventDefault();
+
+//       const publications = formPost["inputPost"];
+
+//       await savePublication(publications.value);
+
+//       await getPublication();
+
+//       postButton.reset();
+//       publications.focus();
+
+
+     
+
+       
+//   })
+//   }

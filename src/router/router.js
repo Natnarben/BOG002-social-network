@@ -1,7 +1,7 @@
 import { landing } from "../views/landing.js";
 import { signUp, signUpEvent, googleRegister } from "../views/signUp.js";
 import { logIn, loginEvent,  googleLogIn } from "../views/logIn.js";
-import { timeLine, signOut   } from "../views/timeLine.js";
+import { timeLine, signOut  } from "../views/timeLine.js";
 import {  profilePage  } from "../views/profile.js";
 
 const container = document.getElementById("root");
@@ -17,19 +17,21 @@ export const routing = (routes) => {
       container.appendChild(signUp());
       signUpEvent();
       googleRegister();
-    
-      break;
+    break;
+
     case "#/logIn":
       container.appendChild(logIn());
       loginEvent();
       googleLogIn();
+    break;
 
-      break;
     case "#/timeLine":  
     container.appendChild(timeLine());
-    signOut();
-      break;
-      case "#/profile":  
+    signOut()
+    // eventPost()
+    break;
+
+    case "#/profile":  
       container.appendChild( profilePage());
         break;
     default:
