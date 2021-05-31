@@ -1,7 +1,8 @@
 import { landingPage } from '../views/landing.js';
-import { signUp, signUpEvent } from '../views/signUp.js';
-import { logIn, logInEvent } from '../views/logIn.js';
-import { timeLine } from '../views/timeline.js';
+import { signUp, signUpEvent, googleEvent } from '../views/signUp.js';
+import { logIn, logInEvent, googleLogIn } from '../views/logIn.js';
+import { timeLine, signOut, eventPost } from '../views/timeLine.js';
+import { profilePage } from '../views/profile.js';
 
 const container = document.getElementById('root');
 
@@ -15,16 +16,20 @@ export const routing = (routes) => {
     case '#/signUp':
       container.appendChild(signUp());
       signUpEvent();
-      // googleEvent();
+      googleEvent();
       break;
     case '#/logIn':
       container.appendChild(logIn());
       logInEvent();
-      // googleEvent();
+      googleLogIn();
       break;
     case '#/timeLine':
       container.appendChild(timeLine());
-      // logInEvent();
+      signOut();
+      eventPost();
+      break;
+    case '#/profile':
+      container.appendChild(profilePage());
       break;
     default:
       console.log('error!');
