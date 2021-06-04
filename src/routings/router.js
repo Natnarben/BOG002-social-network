@@ -1,7 +1,8 @@
 import { landingPage } from '../views/landing.js';
 import { signUp, signUpEvent, googleEvent } from '../views/signUp.js';
-import { logIn, logInEvent } from '../views/logIn.js';
-import { timeLine, signOutEvent } from '../views/timeLine.js';
+import { logIn, logInEvent, googleLogIn } from '../views/logIn.js';
+import { timeLine, signOutEvent, eventPost } from '../views/timeLine.js';
+import { getPublication } from '../firebase/firestore.js';
 
 const container = document.getElementById('root');
 
@@ -20,11 +21,13 @@ export const routing = (routes) => {
     case '#/logIn':
       container.appendChild(logIn());
       logInEvent();
-      // googleLogIn(); , googleLogIn
+      googleLogIn();
       break;
     case '#/timeLine':
       container.appendChild(timeLine());
       signOutEvent();
+      eventPost();
+      getPublication();
       // logInEvent();
       break;
     default:

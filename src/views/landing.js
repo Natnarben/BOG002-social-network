@@ -2,7 +2,7 @@ export function landingPage() {
   const htmlLanding = `
     <div class="divLanding">
       <div class="landingClass">
-        <img src="../src/images/meowBoxMarcaBlanca.png" alt="logo">
+        <img src="./images/meowBoxMarcaBlanca.png" alt="logo">
         <p>Personas con un gusto en común, los gatitos.</p>
         <img src="../src/images/meowBoxCabeza.png" alt="">
         <p>Haz parte de nuestra comunidad</p>

@@ -3,9 +3,9 @@ import { loginUser, googleAuth } from '../firebase/firebaseAuth.js';
 export function logIn() {
   const htmlLogin = `
   <div class="divLogIn">
-    <img src="../src/images/MeowBoxMarcaMorada.png" alt="logoMeowBox" width="20%" height="20%">
+    <img src="./images/MeowBoxMarcaMorada.png" alt="logoMeowBox" width="20%" height="20%">
     <h2 class="titles">¡Bienvenido de vuelta!</h2>
-    <button class="googleLogin" > <img src="../src/images/google.png" alt="googleLogo"  "width="40px" height="40px"> Continuar con Google</button>
+    <button id="googleLogin" > <img src="./images/google.png" alt="googleLogo"  "width="40px" height="40px"> Continuar con Google</button>
     <br>
     <p>ó</p>
     <br>
@@ -36,31 +36,23 @@ export function logIn() {
   return loginView;
 }
 
-export function logInEvent() {
-  const formLogin = document.getElementById('formLogIn');
-  formLogin.addEventListener('submit', (event) => {
-    const emailLogin = document.getElementById('emailLogIn').value;
-    console.log(emailLogin);
-    const passwordLogin = document.getElementById('passwordLogIn').value;
-    event.preventDefault();
-
-    loginUser(emailLogin, passwordLogin).then((result) => {
-      if (result.error) {
-        document.querySelector('.error').innerHTML = result.message;
-      }
-    });
-    console.log('SI FUNCIONO');
-  });
-}
-
 export function googleLogIn() {
   const googleLogInbutton = document.getElementById('googleLogin');
   googleLogInbutton.addEventListener('click', (event) => {
     event.preventDefault();
-    googleAuth().then((result) => {
+    googleAuth();
+  });
+}
+
+export function logInEvent() {
+  const formLogin = document.getElementById('formLogIn');
+  formLogin.addEventListener('submit', (event) => {
+    const emailLogin = document.getElementById('emailLogIn').value;
+    const passwordLogin = document.getElementById('passwordLogIn').value;
+    event.preventDefault();
+    loginUser(emailLogin, passwordLogin).then((result) => {
       if (result.error) {
         document.querySelector('.error').innerHTML = result.message;
-        console.log(result.error);
       }
     });
   });

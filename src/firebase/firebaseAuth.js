@@ -20,6 +20,10 @@ export const registerUser = (email, password) => {
   return promesa;
 };
 
+// auth.onAuthStateChanged((user) => {
+//   console.log(user);
+// });
+
 export const loginUser = (email, password) => {
   const promesa = auth
     .signInWithEmailAndPassword(email, password)

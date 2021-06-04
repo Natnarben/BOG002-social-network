@@ -3,9 +3,9 @@ import { registerUser, googleAuth } from '../firebase/firebaseAuth.js';
 export function signUp() {
   const signUpHtml = `
   <div class="divSignUp">
-    <img src="../src/images/MeowBoxMarcaMorada.png" alt="logo" width="20%" height="20%">
+    <img src="./images/MeowBoxMarcaMorada.png" alt="logo" width="20%" height="20%">
     <h2 class="titles">Crea tu cuenta</h2>
-    <button id="googleLogIn" class="googleLogin"> <img src="../src/images/google.png" alt="googlelogo "width="40px" height="40px"> Crear con Google</button>
+    <button id="googleLogIn" class="googleLogin"> <img src="./images/google.png" alt="googlelogo "width="40px" height="40px"> Crear con Google</button>
     <br>
     <p>ó</p>
     <br>
