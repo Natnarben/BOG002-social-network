@@ -114,5 +114,5 @@ export const deletePublication = id => db.collection("publications").doc(id).del
 export const getPublicationsId= (id) =>
 db.collection("publications").doc(id).get();
 
-export const updatePublications = (id, updatePublication) =>
-   db.collection("publications").doc(id).update(updatePublication);
+export const updatePost = (id, updatedPost)=>
+db.collection("publications").doc(id).update(updatedPost);

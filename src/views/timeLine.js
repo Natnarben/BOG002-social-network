@@ -1,4 +1,4 @@
-import {profileSignOut, savePublication, getPublication, onGetPublication, deletePublication, getPublicationsId, updatePublications } from "../firebase/firebaseAuth.js"
+import {profileSignOut, savePublication, getPublication, onGetPublication, deletePublication, getPublicationsId, updatePost } from "../firebase/firebaseAuth.js"
 
 
 export function timeLine() {
@@ -64,24 +64,28 @@ export function eventPost(){
     const postButton = document.getElementById("formPost");
     const containerPublication = document.getElementById("containerPublication");
    
-
     let editStatus = false;
     let id = "";
 
-      postButton.addEventListener("submit", async (event) => {
+    postButton.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       const publications = formPost["inputPost"];
 
-     if(editStatus){
-      await savePublication(publications.value);
-     }
-     else{
-      await updatePublications(id, {
-        publications: publications.value
-       
-      })
-     }
+      if(!editStatus){
+        await savePublication(publications.value);
+      }
+      else{
+       await updatePost(id, {
+         descripcion:publications.value
+       });
+
+       editStatus = false;
+       id = "";
+       formPost["btnPost"].innerHTML = "Publicar";
+      }
+   
+     
 
       await getPublication();
 
@@ -90,10 +94,10 @@ export function eventPost(){
      
   })
 
-   //pintar publicaciones de firestore//
+     //pintar publicaciones de firestore//
 
-   
-    onGetPublication((querySnapshot)=>{
+
+     onGetPublication((querySnapshot)=>{
       containerPublication.innerHTML ="";
      querySnapshot.forEach((doc) =>{
       const postData = doc.data();
@@ -102,8 +106,8 @@ export function eventPost(){
 
         //  console.log(doc.data());
          
-        const post = doc.data()
-        post.id = doc.id;
+        // const post = doc.data()
+        // post.id = doc.id;
 
          containerPublication.innerHTML += `
          <p id="user-name">${postData.name}</p>
@@ -116,36 +120,33 @@ export function eventPost(){
          </div>
          </div> `;
 
+         //Boton Eliminar//
+
         const btnDelete = document.querySelectorAll(".btn-delete");
         btnDelete.forEach(btn =>{
           btn.addEventListener("click", async (e)=>{
            await deletePublication(e.target.dataset.id);
           })
         });
+
+
           //Boton editar//
         const btnEdit = document.querySelectorAll(".btn-edit");
         btnEdit.forEach(btn =>{
           btn.addEventListener("click", async (e)=>{
           const doc= await getPublicationsId (e.target.dataset.id);
-         // console.log(doc.data());
+        //  console.log(doc.data());
 
           const post = doc.data();
 
+          editStatus= true;
+          id = doc.id;
 
-           editStatus = true;
-           id = doc.id;
-
-           formPost["inputPost"].value = post.descripcion;
-           formPost["btnPost"].innerHTML = "Editar"
-           
-          
-          })
+          formPost["inputPost"].value = post.descripcion;
+          formPost["btnPost"].innerHTML = "Guardar";
+           })
         });
-
-
-     
-        })
+})
       })
-   
-  
+    
 }
