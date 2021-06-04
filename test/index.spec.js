@@ -2,6 +2,7 @@
 import { registerUser } from "../src/firebase/firebaseAuth.js";
 
 const firebasemock = require("firebase-mock");
+const auth = firebase.auth();
 
 const mockauth = new firebasemock.MockAuthentication();
 const mocksdk = new firebasemock.MockFirebaseSdk(
@@ -9,8 +10,18 @@ const mocksdk = new firebasemock.MockFirebaseSdk(
   () => mockauth
 );
 
+
+
+
 mockauth.autoFlush();
 global.firebase = mocksdk;
+
+global.firebase = {
+  auth: () => {
+    const newMockFirebase = new mockFirebase.MockAuthentication();
+    return newMockFirebase;
+  },
+};
 
 describe("registerUser", () => {
   it("debería ser una función", () => {

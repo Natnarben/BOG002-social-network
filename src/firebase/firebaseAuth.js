@@ -1,6 +1,8 @@
 const auth = firebase.auth();
 
-// const db = firebase.firestore();
+//const db = firebase.firestore();
+
+
 
 
 export const registerUser = (email, password) => {
@@ -62,8 +64,8 @@ export function googleAuth() {
       .then((result) => {
         window.location.assign("#/timeLine");
        
-        console.log(result);
-        console.log('google sign in');
+        // console.log(result);
+        // console.log('google sign in');
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -86,15 +88,31 @@ export function googleAuth() {
       });
     }
 
-//     //FIRESTORE//
+    //FIRESTORE//
 
-// export const savePublication = (publications) =>
-//   db.collection("publications").doc().set({
-//   publications
-// });
+    export const savePublication = (descripcion) => {
+      const userAuthor = auth.currentUser;
+      const name = userAuthor.displayName;
+      db.collection('publications').doc().set({
+        descripcion, name,
+      });
+    };
+    
 
-// export const getPublication = () => 
-//   db.collection("publications").get();
+//obtener y Eliminar publicaciones//
 
-// export const onGetPublication = (callback) => 
-// db.collection("publications").onSnapshot(callback);
+export const getPublication = () => 
+  db.collection("publications").get();
+
+export const onGetPublication = (callback) => 
+db.collection("publications").onSnapshot(callback);//.orderBy("date", "desc");
+
+export const deletePublication = id => db.collection("publications").doc(id).delete();
+
+//boton Editar//
+
+export const getPublicationsId= (id) =>
+db.collection("publications").doc(id).get();
+
+export const updatePublications = (id, updatePublication) =>
+   db.collection("publications").doc(id).update(updatePublication);

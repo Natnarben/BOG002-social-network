@@ -1,4 +1,4 @@
-import {profileSignOut } from "../firebase/firebaseAuth.js"
+import {profileSignOut, savePublication, getPublication, onGetPublication, deletePublication, getPublicationsId, updatePublications } from "../firebase/firebaseAuth.js"
 
 
 export function timeLine() {
@@ -25,6 +25,7 @@ export function timeLine() {
         <button type="submit" id="btnPost">Publicar</button>
       </div>
       <div id="containerPublication"></div>
+     
       </form>
     
       `;
@@ -58,44 +59,93 @@ export function dropdownMenu() {
 //Funcion para publicar//
 
 
-// export function eventPost(){
+export function eventPost(){
 
-//     const postButton = document.getElementById("formPost");
-//     const containerPublication = document.getElementById("containerPublication");
+    const postButton = document.getElementById("formPost");
+    const containerPublication = document.getElementById("containerPublication");
+   
 
-//      //pintar publicaciones de firestore//
+    let editStatus = false;
+    let id = "";
 
-//      window.addEventListener("DOMContentLoaded", async (event) =>{
-//        onGetPublication((querySnapshot)=>{
-//          containerPublication.innerHTML ="";
-//         querySnapshot.forEach(doc =>{
-//             console.log(doc.data())
-//             containerPublication.innerHTML += `<div>
-//             ${doc.data().publications}
-//             <div>
-//              <button class="btnEliminar">Eliminar</button>
-//              <button>Editar</button>
-//             </div>
-//             </div> `})
-//          })
-      
-//     })
+      postButton.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-//      postButton.addEventListener("submit", async (event) => {
-//       event.preventDefault();
+      const publications = formPost["inputPost"];
 
-//       const publications = formPost["inputPost"];
+     if(editStatus){
+      await savePublication(publications.value);
+     }
+     else{
+      await updatePublications(id, {
+        publications: publications.value
+       
+      })
+     }
 
-//       await savePublication(publications.value);
+      await getPublication();
 
-//       await getPublication();
+      postButton.reset();
+      publications.focus();
+     
+  })
 
-//       postButton.reset();
-//       publications.focus();
+   //pintar publicaciones de firestore//
+
+   
+    onGetPublication((querySnapshot)=>{
+      containerPublication.innerHTML ="";
+     querySnapshot.forEach((doc) =>{
+      const postData = doc.data();
+      postData.id = doc.id;
+
+
+        //  console.log(doc.data());
+         
+        const post = doc.data()
+        post.id = doc.id;
+
+         containerPublication.innerHTML += `
+         <p id="user-name">${postData.name}</p>
+
+         <div>
+         ${postData.descripcion}
+         <div>
+          <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
+          <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>
+         </div>
+         </div> `;
+
+        const btnDelete = document.querySelectorAll(".btn-delete");
+        btnDelete.forEach(btn =>{
+          btn.addEventListener("click", async (e)=>{
+           await deletePublication(e.target.dataset.id);
+          })
+        });
+          //Boton editar//
+        const btnEdit = document.querySelectorAll(".btn-edit");
+        btnEdit.forEach(btn =>{
+          btn.addEventListener("click", async (e)=>{
+          const doc= await getPublicationsId (e.target.dataset.id);
+         // console.log(doc.data());
+
+          const post = doc.data();
+
+
+           editStatus = true;
+           id = doc.id;
+
+           formPost["inputPost"].value = post.descripcion;
+           formPost["btnPost"].innerHTML = "Editar"
+           
+          
+          })
+        });
 
 
      
-
-       
-//   })
-//   }
+        })
+      })
+   
+  
+}

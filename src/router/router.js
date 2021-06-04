@@ -1,7 +1,7 @@
 import { landing } from "../views/landing.js";
 import { signUp, signUpEvent, googleRegister } from "../views/signUp.js";
 import { logIn, loginEvent,  googleLogIn } from "../views/logIn.js";
-import { timeLine, signOut  } from "../views/timeLine.js";
+import { timeLine, signOut, eventPost  } from "../views/timeLine.js";
 import {  profilePage  } from "../views/profile.js";
 
 const container = document.getElementById("root");
@@ -28,7 +28,7 @@ export const routing = (routes) => {
     case "#/timeLine":  
     container.appendChild(timeLine());
     signOut()
-    // eventPost()
+    eventPost()
     break;
 
     case "#/profile":  
@@ -38,3 +38,5 @@ export const routing = (routes) => {
       console.log("error!");
   }
 };
+
+
