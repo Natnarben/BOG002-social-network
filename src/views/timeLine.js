@@ -102,6 +102,7 @@ export function eventPost(){
      querySnapshot.forEach((doc) =>{
       const postData = doc.data();
       postData.id = doc.id;
+      // postData.date = doc.date;
 
 
         //  console.log(doc.data());
@@ -111,6 +112,11 @@ export function eventPost(){
 
          containerPublication.innerHTML += `
          <p id="user-name">${postData.name}</p>
+         
+        
+         
+       
+     
 
          <div>
          ${postData.descripcion}

@@ -10,6 +10,7 @@ export const registerUser = (email, password) => {
     
     .createUserWithEmailAndPassword(email, password,)
     .then((userCredential) => {
+     
       window.location.assign("#/timeLine");
       // Signed in
       // let user = userCredential.user;
@@ -93,8 +94,12 @@ export function googleAuth() {
     export const savePublication = (descripcion) => {
       const userAuthor = auth.currentUser;
       const name = userAuthor.displayName;
-      db.collection('publications').doc().set({
-        descripcion, name,
+     
+    
+      db.collection('publications').add({
+        descripcion, 
+        name, 
+        date: Date.now(),
       });
     };
     
@@ -105,7 +110,8 @@ export const getPublication = () =>
   db.collection("publications").get();
 
 export const onGetPublication = (callback) => 
-db.collection("publications").onSnapshot(callback);//.orderBy("date", "desc");
+db.collection("publications").orderBy("date", "desc").onSnapshot(callback);
+//.orderBy("date", "desc");
 
 export const deletePublication = id => db.collection("publications").doc(id).delete();
 
