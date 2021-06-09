@@ -58,20 +58,20 @@
     font-size: 13px;
     color: #555;
 }
- .user-mail, .password{
+.user-mail, .password, .user-name {
     margin-bottom: 15px;
     border-radius: 3px;
     box-shadow: inset 5px 5px 5px #cbcde1,
                 inset -5px -5px 5px #d6c4f8;
                 
- }
+}
 
 
- .svg-icon {
+.svg-icon {
     margin: 0 0px -15px 160px;
     width: 1em;
     height: 1em;
-  }
+}
   
   .svg-icon path,
   .svg-icon polygon,

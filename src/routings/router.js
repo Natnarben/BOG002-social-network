@@ -1,8 +1,10 @@
 import { landingPage } from '../views/landing.js';
 import { signUp, signUpEvent, googleEvent } from '../views/signUp.js';
 import { logIn, logInEvent, googleLogIn } from '../views/logIn.js';
-import { timeLine, signOutEvent, eventPost } from '../views/timeLine.js';
-import { getPublication } from '../firebase/firestore.js';
+import {
+  timeLine, signOutEvent, eventPost, printPublication,
+} from '../views/timeLine.js';
+// import { getPublication } from '../firebase/firestore.js';
 
 const container = document.getElementById('root');
 
@@ -27,7 +29,7 @@ export const routing = (routes) => {
       container.appendChild(timeLine());
       signOutEvent();
       eventPost();
-      getPublication();
+      printPublication();
       // logInEvent();
       break;
     default:

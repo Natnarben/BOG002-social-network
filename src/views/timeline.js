@@ -1,5 +1,5 @@
 import { signOut } from '../firebase/firebaseAuth.js';
-import { savePublication } from '../firebase/firestore.js';
+import { savePublication, onGetPublication } from '../firebase/firestore.js';
 
 export function timeLine() {
   const htmlTimeLine = `
@@ -50,7 +50,21 @@ export function eventPost() {
   });
 }
 
+export function printPublication() {
+  const containerPublication = document.getElementById('containerPublication');
+  onGetPublication((querySnapshot) => {
+    containerPublication.innerHTML = '';
+    querySnapshot.forEach((doc) => {
+      const postData = doc.data();
+      postData.id = doc.id;
+      // console.log(postData);
+
+      containerPublication.innerHTML += `
+      <p id="user-name">${postData.name}</p>
+      <div>${postData.descripcion}</div>`;
+    });
+  });
+}
 // funcion para pintarPublicación y llamo router
-// onsnapshot -> cambios en tiempo real
 // plataformas gratis
 // separar funciones

@@ -1,13 +1,15 @@
 const auth = firebase.auth();
 
-export const registerUser = (email, password) => {
+export const registerUser = (email, password, name) => {
   const promesa = auth
     .createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       window.location.assign('#/timeLine');
       // Signed in
-      // let user = userCredential.user;
-      return userCredential;
+      const user = userCredential.user;
+      // user.displayName = name;
+      console.log(name);
+      return user.updateProfile({ displayName: name });
     })
     .catch((error) => {
       // let errorCode = error.code;
@@ -30,7 +32,8 @@ export const loginUser = (email, password) => {
     .then((userCredential) => {
       window.location.assign('#/timeLine');
       // Signed in
-      // let user = userCredential.user;
+      const user = userCredential.user;
+      console.log(user);
       return userCredential;
       // ...
     })
