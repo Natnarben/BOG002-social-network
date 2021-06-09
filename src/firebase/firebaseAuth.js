@@ -2,14 +2,14 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 // Initialize Cloud Firestore through Firebase
 
-export const registerUser = (email, password) => {
+export const registerUser = (email, password, name) => {
   const promesa = auth
     .createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       window.location.assign('#/timeLine');
       // Signed in
-      // let user = userCredential.user;
-      return userCredential;
+      const user = userCredential.user;
+      return user.updateProfile({ displayName: name });
     })
     .catch((error) => {
       // let errorCode = error.code;
@@ -27,9 +27,11 @@ export const loginUser = (email, password) => {
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
       window.location.assign('#/timeLine');
+      const userAuthor = auth.currentUser;
+      const name = userAuthor.displayName;
       // Signed in
       // let user = userCredential.user;
-      return userCredential;
+      return userCredential + name;
       // ...
     })
     .catch((error) => {
@@ -48,10 +50,8 @@ export function googleAuth() {
   const provider = new firebase.auth.GoogleAuthProvider();
   const promesa = auth
     .signInWithPopup(provider)
-    .then((result) => {
+    .then(() => {
       window.location.assign('#/timeLine');
-      console.log(result);
-      console.log('google sign in');
     })
     .catch((error) => {
       // const errorCode = error.code;
@@ -75,13 +75,30 @@ export function profileSignOut() {
   });
 }
 
-export const savePublication = (publications) =>
-  db.collection('publications').doc().set({
-    publications,
+// FIRESTORE
+
+export const savePublication = (descripcion) => {
+  const userAuthor = auth.currentUser;
+  const name = userAuthor.displayName;
+  db.collection('publications').add({
+    descripcion,
+    name,
+    date: Date.now(),
   });
+};
 
-export const getPublication = () =>
-  db.collection('publications').get();
-
+// obtener publicaciones
 export const onGetPublication = (callback) =>
-  db.collection('publications').onSnapshot(callback);
+  db.collection('publications').orderBy('date', 'desc').onSnapshot(callback);
+
+// eliminar publicaciones
+export const deletePublication = (id) =>
+  db.collection('publications').doc(id).delete();
+
+// Obtener id
+export const getPublicationsId = (id) =>
+  db.collection('publications').doc(id).get();
+
+// editar publicacion
+export const updatePost = (id, updatedPost) =>
+  db.collection('publications').doc(id).update(updatedPost);

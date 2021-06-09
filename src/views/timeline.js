@@ -1,4 +1,6 @@
-import { profileSignOut, onGetPublication, savePublication, getPublication } from '../firebase/firebaseAuth.js';
+import {
+  profileSignOut, savePublication, onGetPublication, deletePublication, updatePost, getPublicationsId,
+} from '../firebase/firebaseAuth.js';
 
 export function timeLine() {
   const htmlTimeLine = `
@@ -16,15 +18,16 @@ export function timeLine() {
     </div>
     
     </section>
-    <form id="formPost">
-    <div>
-     <input id="inputPost" type="text" placeholder="Post" autofocus>
-    </div>
-    <div>
-      <button type="submit" id="btnPost">Publicar</button>
-    </div>
-    <div id="containerPublication"></div>
-    </form>
+      <form id="formPost" class="formPost">
+      <div>
+       <input id="inputPost" class="inputPost" type="text" placeholder="Post" autofocus>
+      </div>
+      <div>
+        <button type="submit" id="btnPost" class="btnPost">Publicar</button>
+      </div>
+      <div id="containerPublication"></div>
+     
+      </form>
   
     `;
   const timeLineView = document.createElement('section');
@@ -46,40 +49,69 @@ export function dropdownMenu() {
     console.log('Soy un boton que funciona');
   });
 }
-// Funcion para publicar //
+
+// Funcion para GUARDAR descripcion en FIREBASE
 
 export function eventPost() {
   const postButton = document.getElementById('formPost');
-  const containerPublication = document.getElementById('containerPublication');
-
-  // pintar publicaciones de firestore //
-
+  let editStatus = false;
+  let id = '';
   postButton.addEventListener('submit', async (event) => {
     event.preventDefault();
-
     const publications = document.getElementById('inputPost');
+    if (!editStatus) {
+      await savePublication(publications.value);
+    }
+    else {
+      await updatePost(id, {
+        descripcion: publications.value,
+      });
 
-    await savePublication(publications.value);
-
-    await getPublication();
-
-    postButton.reset();
-    publications.focus();
+      editStatus = false;
+      id = '';
+      postButton['.btnPost'].innerHTML = 'Publicar';
+    }
   });
-  // obteniendo la info de collection de las publicaciones desde firestore
-  window.addEventListener('DOMContentLoaded', async () => {
-    onGetPublication((querySnapshot) => {
-      containerPublication.innerHTML = '';
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-        containerPublication.innerHTML += `<div>
-            ${doc.data().publications}
-            <div>
-            <button class="btn-delete">Eliminar</button>
-            <button class="btn-edit">Editar</button>
-            </div>
-            </div> `;
+  const btnEdit = document.querySelectorAll('.btn-edit');
+  btnEdit.forEach((btn) => {
+    btn.addEventListener('click', async (event) => {
+      const doc = await getPublicationsId(event.target.dataset.id);
+      const postData = doc.data();
+      // postData.id = doc.id;
+
+      editStatus = true;
+      id = doc.id;
+
+      postButton['.inputPost'].value = postData.descripcion;
+      postButton['.btnPost'].innerHTML = 'Guardar';
+    });
+  });
+}
+// funcion para imprimir en pantalla lo obtenido en FIREBASE
+export function printPublication() {
+  const containerPublication = document.getElementById('containerPublication');
+  onGetPublication((querySnapshot) => {
+    containerPublication.innerHTML = '';
+    querySnapshot.forEach((doc) => {
+      const postData = doc.data();
+      postData.id = doc.id;
+      containerPublication.innerHTML += `
+      <p id="user-name">${postData.name}</p>
+      <div>
+        ${postData.descripcion}
+        <div>
+          <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
+          <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>
+        </div>
+      </div>`;
+
+      const btnDelete = document.querySelectorAll('.btn-delete');
+      btnDelete.forEach((btn) => {
+        btn.addEventListener('click', async (event) => {
+          await deletePublication(event.target.dataset.id);
+        });
       });
     });
   });
+  // evento click para editar
 }

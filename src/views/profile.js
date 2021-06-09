@@ -9,18 +9,3 @@ export function profilePage() {
   profileView.innerHTML = htmlProfile;
   return profileView;
 }
-/*
-const PublForm = document.getElementById('publications-form');
-const savePublications = (nombre, descripción) => dataBase.collection('publications').doc().set({
-  nombre,
-  descripción,
-});
-
-PublForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const messagePublications = PublForm['text-description'].value;
-
-  await savePublications(nombre.value, descripción.value);
-  PublForm.reset();
-  console.log(messagePublications);
-}); */
