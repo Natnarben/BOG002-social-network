@@ -1,39 +1,40 @@
 import {
-  profileSignOut, savePublication, onGetPublication, deletePublication, updatePost, getPublicationsId,
+  profileSignOut, savePublication, onGetPublication,
+  deletePublication,
 } from '../firebase/firebaseAuth.js';
 
 export function timeLine() {
   const htmlTimeLine = `
-    <section class="navigationBar">
-    <div><img src="../src/images/MeowBoxMarcaMorada.png" alt="" width="25%"></div>
-
-    
-    <div class="dropdown">
-      <h2 class="dropbtn"><img src="../src/images/Perfil3.png" width="25%"></h2>
-      <div class="dropdown-content">
-        <a href="#/profile">Perfil</a>
-        <a href="" id ="logOut">Cerrar Sesión</a>
-     
+    <nav class="navigationBar">
+      <div>
+        <img src="../src/images/MeowBoxMarcaMorada.png" alt="" width="20%" href="#/timeLine">
       </div>
-    </div>
-    
+      <div class="dropdown">
+        <h2 class="dropbtn"><img src="../src/images/Perfil3.png" width="25%" class="icon-profile"></h2>
+        <div class="dropdown-content">
+          <a href="#/profile">Perfil</a>
+          <a href="" id ="logOut">Cerrar Sesión</a> 
+        </div>
+      </div> 
+    </nav>
+    <form id="formPost" class="formPost">
+      <div>
+        <input id="inputPost" class="inputPost" type="text" placeholder="¿Qué te gustaría compartir hoy?" autofocus>
+        <div>
+        <br>
+          <button type="submit" id="btnPost" class="btnPost">Publicar</button>
+        </div>
+      </div>      
+    </form>
+    <section id="containerPublication">
     </section>
-      <form id="formPost" class="formPost">
-      <div>
-       <input id="inputPost" class="inputPost" type="text" placeholder="Post" autofocus>
-      </div>
-      <div>
-        <button type="submit" id="btnPost" class="btnPost">Publicar</button>
-      </div>
-      <div id="containerPublication"></div>
-     
-      </form>
-  
     `;
   const timeLineView = document.createElement('section');
   timeLineView.innerHTML = htmlTimeLine;
+  timeLineView.className = 'timeLineSection';
   return timeLineView;
 }
+// funcion para cerrar Sesion
 export function signOut() {
   const logOut = document.getElementById('logOut');
   logOut.addEventListener('click', (event) => {
@@ -42,52 +43,52 @@ export function signOut() {
     profileSignOut();
   });
 }
-
+// funcion para deslizar hacia abajo menu Perfil y cerrar sesion
 export function dropdownMenu() {
   const buttonMenu = document.getElementById('btn');
   buttonMenu.addEventListener('click', () => {
-    console.log('Soy un boton que funciona');
   });
 }
 
 // Funcion para GUARDAR descripcion en FIREBASE
 
 export function eventPost() {
-  const postButton = document.getElementById('formPost');
-  let editStatus = false;
-  let id = '';
-  postButton.addEventListener('submit', async (event) => {
+  const postButton = document.getElementById('btnPost');
+  // let editStatus = false;
+  // let id = '';
+  postButton.addEventListener('click', async (event) => {
     event.preventDefault();
     const publications = document.getElementById('inputPost');
-    if (!editStatus) {
-      await savePublication(publications.value);
-    }
-    else {
-      await updatePost(id, {
-        descripcion: publications.value,
-      });
-
-      editStatus = false;
-      id = '';
-      postButton['.btnPost'].innerHTML = 'Publicar';
-    }
-  });
-  const btnEdit = document.querySelectorAll('.btn-edit');
-  btnEdit.forEach((btn) => {
-    btn.addEventListener('click', async (event) => {
-      const doc = await getPublicationsId(event.target.dataset.id);
-      const postData = doc.data();
-      // postData.id = doc.id;
-
-      editStatus = true;
-      id = doc.id;
-
-      postButton['.inputPost'].value = postData.descripcion;
-      postButton['.btnPost'].innerHTML = 'Guardar';
-    });
+    // if (!editStatus) {
+    await savePublication(publications.value);
   });
 }
-// funcion para imprimir en pantalla lo obtenido en FIREBASE
+    // else {
+      // await updatePost(id, {
+       // descripcion: publications.value,
+      // });
+
+      // editStatus = false;
+      // id = '';
+      // postButton['.btnPost'].innerHTML = 'Publicar';
+    // }
+  // });
+  // const btnEdit = document.querySelectorAll('.btn-edit');
+  // btnEdit.forEach((btn) => {
+  //  btn.addEventListener('click', async (event) => {
+  //    const doc = await getPublicationsId(event.target.dataset.id);
+  //    const postData = doc.data();
+      // postData.id = doc.id;
+
+  //    editStatus = true;
+  //    id = doc.id;
+
+  //    postButton['.inputPost'].value = postData.descripcion;
+  //    postButton['.btnPost'].innerHTML = 'Guardar';
+  //  });
+  //});
+
+// funcion para imprimir en pantalla lo obtenido de FIREBASE
 export function printPublication() {
   const containerPublication = document.getElementById('containerPublication');
   onGetPublication((querySnapshot) => {
@@ -96,13 +97,18 @@ export function printPublication() {
       const postData = doc.data();
       postData.id = doc.id;
       containerPublication.innerHTML += `
-      <p id="user-name">${postData.name}</p>
-      <div>
-        ${postData.descripcion}
-        <div>
-          <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
-          <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>
-        </div>
+      <div class="each-publication">
+        <p id="user-name">${postData.name}</p>
+        <p class="descripcion-space">
+          ${postData.descripcion}
+          <div class="actions-space">
+            <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
+            <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>
+          </div>
+        </p>
+        <button class="likes" id="likes">
+          <p><span id="showLikes"></span> Me gusta</p>
+        </button>
       </div>`;
 
       const btnDelete = document.querySelectorAll('.btn-delete');
@@ -113,5 +119,12 @@ export function printPublication() {
       });
     });
   });
-  // evento click para editar
+}
+
+export function countingLikes() {
+  let contador = 0;
+  document.getElementById('likes').onclick = function sumarLikes() {
+    contador++;
+    document.getElementById('showLikes').innerHTML = contador;
+  };
 }

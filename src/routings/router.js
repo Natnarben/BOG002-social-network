@@ -1,7 +1,7 @@
 import { landingPage } from '../views/landing.js';
 import { signUp, signUpEvent, googleEvent } from '../views/signUp.js';
 import { logIn, logInEvent, googleLogIn } from '../views/logIn.js';
-import { timeLine, signOut, eventPost, printPublication } from '../views/timeLine.js';
+import { timeLine, signOut, eventPost, printPublication, countingLikes } from '../views/timeLine.js';
 import { profilePage } from '../views/profile.js';
 
 const container = document.getElementById('root');
@@ -28,6 +28,7 @@ export const routing = (routes) => {
       signOut();
       eventPost();
       printPublication();
+      countingLikes();
       break;
     case '#/profile':
       container.appendChild(profilePage());
