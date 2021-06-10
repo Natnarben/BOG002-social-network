@@ -226,8 +226,16 @@
 
 #containerPublication{
   padding-top: 30px;
+  width: 400px;
+  margin: auto;
 }
 
+.each-publication{
+  
+  padding-top: 50px;
+  width: 100%;
+  justify-content: center;
+}
 .descripcion-space{
   display: flex;
   justify-content: space-between;
@@ -236,13 +244,14 @@
   border-color: indigo;
 }
 
-.each-publication{
-  padding-top: 50px;
+.actions-space{
+  display: flex;
+  justify-content: flex-end;
 }
 
 .likes{
-  margin-left: 35%;
   border-style: hidden;
+  margin-right: 100px;
 }
 
 .btn-edit{
@@ -256,6 +265,7 @@
   border-style: hidden;
   color: indigo;
   font-weight: 400;
+  
 }
 
 .icon-profile{

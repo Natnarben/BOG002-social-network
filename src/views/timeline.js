@@ -63,7 +63,7 @@ export function eventPost() {
     await savePublication(publications.value);
   });
 }
-    // else {
+// else {
       // await updatePost(id, {
        // descripcion: publications.value,
       // });
@@ -102,13 +102,11 @@ export function printPublication() {
         <p class="descripcion-space">
           ${postData.descripcion}
           <div class="actions-space">
+            <button class="likes" id="likes"><p><span id="showLikes"></span> Me gusta</p></button>
             <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
-            <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>
+            <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button> 
           </div>
         </p>
-        <button class="likes" id="likes">
-          <p><span id="showLikes"></span> Me gusta</p>
-        </button>
       </div>`;
 
       const btnDelete = document.querySelectorAll('.btn-delete');
@@ -121,10 +119,10 @@ export function printPublication() {
   });
 }
 
-export function countingLikes() {
+/* export function countingLikes() {
   let contador = 0;
   document.getElementById('likes').onclick = function sumarLikes() {
     contador++;
     document.getElementById('showLikes').innerHTML = contador;
   };
-}
+} */
