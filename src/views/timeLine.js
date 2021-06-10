@@ -25,7 +25,6 @@ export function timeLine() {
         <button type="submit" id="btnPost">Publicar</button>
       </div>
       <div id="containerPublication"></div>
-     
       </form>
     
       `;
@@ -56,103 +55,104 @@ export function dropdownMenu() {
   });
 }
 
-//Funcion para publicar//
+// Funcion para GUARDAR descripcion en FIREBASE
 
 
 export function eventPost(){
 
     const postButton = document.getElementById("formPost");
-    const containerPublication = document.getElementById("containerPublication");
-   
-    let editStatus = false;
-    let id = "";
+    
+    // let editStatus = false;
+    // let id = "";
 
     postButton.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       const publications = formPost["inputPost"];
 
-      if(!editStatus){
+      // if(!editStatus){
         await savePublication(publications.value);
-      }
-      else{
-       await updatePost(id, {
-         descripcion:publications.value
-       });
+      // }
+      // else{
+      //  await updatePost(id, {
+      //    descripcion:publications.value
+      //  });
 
-       editStatus = false;
-       id = "";
-       formPost["btnPost"].innerHTML = "Publicar";
-      }
-   
-     
+      //  editStatus = false;
+      //  id = "";
+      //  formPost["btnPost"].innerHTML = "Publicar";
+      // }
 
-      await getPublication();
-
-      postButton.reset();
+    postButton.reset();
       publications.focus();
-     
-  })
+      })
 
-     //pintar publicaciones de firestore//
+}
 
 
-     onGetPublication((querySnapshot)=>{
-      containerPublication.innerHTML ="";
-     querySnapshot.forEach((doc) =>{
+
+// funcion para imprimir en pantalla lo obtenido en FIREBASE
+export function printPublication() {
+  const containerPublication = document.getElementById('containerPublication');
+  
+  // let editStatus = false;
+  // let id = "";
+  onGetPublication((querySnapshot) => {
+    containerPublication.innerHTML = '';
+    querySnapshot.forEach((doc) => {
       const postData = doc.data();
       postData.id = doc.id;
-      // postData.date = doc.date;
-
-
-        //  console.log(doc.data());
-         
-        // const post = doc.data()
-        // post.id = doc.id;
-
-         containerPublication.innerHTML += `
-         <p id="user-name">${postData.name}</p>
-         
-        
-         
-       
-     
-
-         <div>
-         ${postData.descripcion}
-         <div>
+      containerPublication.innerHTML += `
+      <p id="user-name">${postData.name}</p>
+      <div>
+        ${postData.descripcion}
+        <div>
           <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
           <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>
-         </div>
-         </div> `;
+        </div>
+      </div>`;
 
-         //Boton Eliminar//
-
-        const btnDelete = document.querySelectorAll(".btn-delete");
-        btnDelete.forEach(btn =>{
-          btn.addEventListener("click", async (e)=>{
-           await deletePublication(e.target.dataset.id);
-          })
+      const btnDelete = document.querySelectorAll('.btn-delete');
+      btnDelete.forEach((btn) => {
+        btn.addEventListener('click',  typeof
+        async (event) => {
+          await deletePublication(event.target.dataset.id);
         });
+      });
+      const btnEdit = document.querySelectorAll(".btn-edit");
+      btnEdit.forEach(btn =>{
+        btn.addEventListener("click", console.log("aqui estoy"))
 
-
-          //Boton editar//
-        const btnEdit = document.querySelectorAll(".btn-edit");
-        btnEdit.forEach(btn =>{
-          btn.addEventListener("click", async (e)=>{
-          const doc= await getPublicationsId (e.target.dataset.id);
-        //  console.log(doc.data());
-
-          const post = doc.data();
-
-          editStatus= true;
-          id = doc.id;
-
-          formPost["inputPost"].value = post.descripcion;
-          formPost["btnPost"].innerHTML = "Guardar";
-           })
-        });
+     
+    });
+  });
+  
 })
-      })
+
+
+ 
+
+  //Boton editar//
+ 
+
+//     (e)=>{
+//       console.log
+//     const doc= await getPublicationsId (e.target.dataset.id);
+//  //  console.log(doc.data());
+   
+
+//     const post = doc.data();
+
+//     editStatus= true;
+//     id = doc.id;
+
+//     formPost["inputPost"].value = post.descripcion;
+//     formPost["btnPost"].innerHTML = "Guardar";
+
     
-}
+//   });
+
+  
+    // formPost["inputPost"].value = post.descripcion;
+    // formPost["btnPost"].innerHTML = "Publicar";
+};

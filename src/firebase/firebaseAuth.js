@@ -1,35 +1,27 @@
 const auth = firebase.auth();
 
-//const db = firebase.firestore();
+const db = firebase.firestore();
 
-
-
-
-export const registerUser = (email, password) => {
- const promesa = auth
-    
-    .createUserWithEmailAndPassword(email, password,)
+export const registerUser = (email, password, name) => {
+  const promesa = auth
+    .createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-     
-      window.location.assign("#/timeLine");
+      window.location.assign('#/timeLine');
       // Signed in
-      // let user = userCredential.user;
-      return userCredential;
-      // ...
+      const user = userCredential.user;
+      return user.updateProfile({ displayName: name });
     })
     .catch((error) => {
-     // let errorCode = error.code;
-      const errorMessage = error.message ;
-      
-      // console.log('error 404!!!', error.message);
+      // let errorCode = error.code;
+      const errorMessage = error.message;
       return {
         error: true,
         message: errorMessage,
-       
       };
     });
-   return promesa;
+  return promesa;
 };
+ 
 
 export const loginUser = (email, password) => {
   const promesa = auth
@@ -104,14 +96,15 @@ export function googleAuth() {
     };
     
 
-//obtener y Eliminar publicaciones//
+//obtener  publicaciones//
 
 export const getPublication = () => 
   db.collection("publications").get();
 
 export const onGetPublication = (callback) => 
 db.collection("publications").orderBy("date", "desc").onSnapshot(callback);
-//.orderBy("date", "desc");
+
+// Eliminar publicaciones
 
 export const deletePublication = id => db.collection("publications").doc(id).delete();
 
