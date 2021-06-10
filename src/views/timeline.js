@@ -1,31 +1,31 @@
 import { signOut } from '../firebase/firebaseAuth.js';
-import { savePublication, onGetPublication } from '../firebase/firestore.js';
+import { savePublication, onGetPublication, deletePublication } from '../firebase/firestore.js';
 
 export function timeLine() {
   const htmlTimeLine = `
     <section class="navigationBar">
-    <div >
+      <div >
         <img src="/images/MeowBoxMarcaMorada.png" alt=""   width="25%" >
-    </div>
-    <div class="dropdown">
+      </div>
+      <div class="dropdown">
         <h2 class="dropbtn"><img src="/images/perfil2.png" alt="navegación" width="40%"></h2>
         <div class="dropdown-content">
             <a href="#/profile">Perfil</a>
             <a id="logOut" href="#/logIn">Cerrar Sesión</a>
+        </div>
       </div>
-    </div>
     </section>
     <section>
-    <form id="formPost">
-      <div>
-        <textarea name="" id="inputPost" rows="3" placeholder="¿Qué te gustaría compartir hoy?"></textarea>
-      </div>
-      <div>  
-        <button type="submit" id="btnPost">Compartir</button>
-      </div>
-      <div id="containerPublication"></div>
-    </form>
+      <form id="formPost">
+        <div>
+          <textarea name="" id="inputPost" rows="3" placeholder="¿Qué te gustaría compartir hoy?"></textarea>
+        </div>
+        <div>  
+          <button type="submit" id="btnPost">Compartir</button>
+        </div>
+      </form>
     </section>
+    <section id="containerPublication"></section>
     `;
   const timeLineView = document.createElement('section');
   timeLineView.innerHTML = htmlTimeLine;
@@ -57,11 +57,30 @@ export function printPublication() {
     querySnapshot.forEach((doc) => {
       const postData = doc.data();
       postData.id = doc.id;
-      // console.log(postData);
 
       containerPublication.innerHTML += `
-      <p id="user-name">${postData.name}</p>
-      <div>${postData.descripcion}</div>`;
+      <div>
+        <p id='user-name'>${postData.name}</p>
+        <div>
+        ${postData.descripcion}
+        <div>
+          <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
+          <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>
+        </div>
+      </div>
+      </div>`;
+      return containerPublication;
+    });
+  });
+}
+
+export function deletePost() {
+  const btnDelete = document.querySelectorAll('.btn-delete');
+  console.log(btnDelete);
+  btnDelete.forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+      console.log('Hola estoy funcionando', event);
+      // await deletePublication(event.target.dataset.id); async
     });
   });
 }

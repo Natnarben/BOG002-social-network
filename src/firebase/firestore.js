@@ -4,20 +4,20 @@ const auth = firebase.auth();
 export const savePublication = (descripcion) => {
   const userAuthor = auth.currentUser;
   const name = userAuthor.displayName;
+  const uid = userAuthor.uid;
+  console.log(uid);
   db.collection('publications').add({
-    descripcion, name,
+    descripcion,
+    name,
+    date: Date.now(),
+    uid,
   });
 };
 
 export const onGetPublication = (callback) => {
-  db.collection('publications').onSnapshot(callback);
+  db.collection('publications').orderBy('date', 'desc').onSnapshot(callback);
 };
-// export const getPublication = () => {
-//   db.collection('publications').onSnapshot((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       // doc.data() is never undefined for query doc snapshots
-//       console.log(doc.id, ' => ', doc.data());
-//       return doc.data();
-//     });
-//   });
-// };
+
+export const deletePublication = (id) => {
+  db.collection('publications').doc(id).delete();
+};

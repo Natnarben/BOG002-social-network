@@ -8,7 +8,6 @@ export const registerUser = (email, password, name) => {
       // Signed in
       const user = userCredential.user;
       // user.displayName = name;
-      console.log(name);
       return user.updateProfile({ displayName: name });
     })
     .catch((error) => {
@@ -33,8 +32,7 @@ export const loginUser = (email, password) => {
       window.location.assign('#/timeLine');
       // Signed in
       const user = userCredential.user;
-      console.log(user);
-      return userCredential;
+      return user;
       // ...
     })
     .catch((error) => {

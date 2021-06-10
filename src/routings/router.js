@@ -2,7 +2,7 @@ import { landingPage } from '../views/landing.js';
 import { signUp, signUpEvent, googleEvent } from '../views/signUp.js';
 import { logIn, logInEvent, googleLogIn } from '../views/logIn.js';
 import {
-  timeLine, signOutEvent, eventPost, printPublication,
+  timeLine, signOutEvent, eventPost, printPublication, deletePost,
 } from '../views/timeLine.js';
 // import { getPublication } from '../firebase/firestore.js';
 
@@ -30,6 +30,7 @@ export const routing = (routes) => {
       signOutEvent();
       eventPost();
       printPublication();
+      deletePost();
       // logInEvent();
       break;
     default:
