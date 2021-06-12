@@ -1,7 +1,9 @@
 import {
   profileSignOut, savePublication, onGetPublication,
-  deletePublication,
+  deletePublication, likesPost, getLikesPost, deleteLikes,
 } from '../firebase/firebaseAuth.js';
+
+const auth = firebase.auth();
 
 export function timeLine() {
   const htmlTimeLine = `
@@ -102,13 +104,18 @@ export function printPublication() {
         <p class="descripcion-space">
           ${postData.descripcion}
           <div class="actions-space">
-            <button class="likes" id="likes"><p><span id="showLikes"></span> Me gusta</p></button>
             <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
             <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button> 
           </div>
+          <div id="containerLikes">
+          <span class="likesCounter" id="likePost${doc.id}">0</span>
+          <button type="button" class="btnLikes" id="btnLikes${doc.id}" data-id="${doc.id}" title="Dar Like">LIKE
+          </button>
+          <button type="button" class="btnLikes" id="btnDisLikes${doc.id}" data-id="${doc.id}" title="Dar DisLike">DISLIKE
+          </button>
+        </div>  
         </p>
       </div>`;
-
       const btnDelete = document.querySelectorAll('.btn-delete');
       btnDelete.forEach((btn) => {
         btn.addEventListener('click', async (event) => {
@@ -116,13 +123,67 @@ export function printPublication() {
         });
       });
     });
+
+    /* const botonLikes = document.querySelectorAll('.likes');
+    botonLikes.forEach(async (element) => {
+      // const doc = await getPublicationsId(element.target.dataset.id);
+      // const postData = doc.data();
+      // postData.id = doc.id;
+      element.addEventListener('click', countingLikes);
+    }); */
   });
 }
+// <button type="button" class="likes" id="likes"><p>
+// <span id="showLikes"></span> Me gusta</p></button>
+export function getLikes(idPost) {
+  const datalikes = [];
+  let likes = 0;
+  let userActualLikes = false;
+  const btnDisLikes = document.getElementById(`btnDisLikes${idPost}`);
+  const btnLikes = document.getElementById(`btnLikes${idPost}`);
+  getLikesPost(idPost)
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        datalikes.push(doc.data());
+        // si el usuario actual ya dio like, activamos variable de control
+        if (doc.data().Uid === auth.currentUser.uid) {
+          userActualLikes = true;
+          // agregar click del btn disLike
+          btnDisLikes.addEventListener('click', () => {
+            deleteLikes(doc.id);
+            getLikes(idPost);
+          });
+        }
+      });
+      // validamos si el usuario actual dio like para mostrar btn disLike
+      if (userActualLikes) {
+        btnLikes.style.display = 'none';
+        btnDisLikes.style.display = 'block';
+      } else {
+        // else mostrar btn like
+        btnLikes.style.display = 'block';
+        btnDisLikes.style.display = 'none';
+      }
+      likes = datalikes.length;
+      // si no tienes likes es porque apenas lo se esta publicando, mostar btnLike
+      if (likes === 0) {
+        btnLikes.style.display = 'block';
+      }
+      const likePost = document.getElementById(`likePost${idPost}`);
+      likePost.innerHTML = likes;
+    });
+}
 
-/* export function countingLikes() {
-  let contador = 0;
-  document.getElementById('likes').onclick = function sumarLikes() {
-    contador++;
-    document.getElementById('showLikes').innerHTML = contador;
-  };
-} */
+export function newCollectionLikes(idPost) {
+  const btnLikes = document.getElementById(`btnLikes${idPost}`);
+  const btnDisLikes = document.getElementById(`btnDisLikes${idPost}`);
+  btnLikes.addEventListener('click', () => {
+    const user = auth.currentUser;
+    const postID = btnLikes.dataset.id;
+    const userID = user.uid;
+    likesPost(postID, userID);
+    getLikes(postID);
+    btnLikes.style.display = 'none';
+    btnDisLikes.style.display = 'block';
+  });
+}

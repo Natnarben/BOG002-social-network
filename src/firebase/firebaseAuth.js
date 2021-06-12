@@ -80,25 +80,59 @@ export function profileSignOut() {
 export const savePublication = (descripcion) => {
   const userAuthor = auth.currentUser;
   const name = userAuthor.displayName;
+  const uid = userAuthor.uid;
+
   db.collection('publications').add({
     descripcion,
     name,
     date: Date.now(),
+    uid,
   });
 };
 
 // obtener publicaciones
-export const onGetPublication = (callback) =>
+export const onGetPublication = (callback) => {
   db.collection('publications').orderBy('date', 'desc').onSnapshot(callback);
-
+};
 // eliminar publicaciones
-export const deletePublication = (id) =>
+export const deletePublication = (id) => {
   db.collection('publications').doc(id).delete();
-
+};
 // Obtener id
-export const getPublicationsId = (id) =>
+export const getPublicationsId = (id) => {
   db.collection('publications').doc(id).get();
-
+};
 // editar publicacion
-export const updatePost = (id, updatedPost) =>
+export const updatePost = (id, updatedPost) => {
   db.collection('publications').doc(id).update(updatedPost);
+};
+/* let contador = 0;
+export function countingLikes() {
+  contador += 1;
+  document.getElementById('showLikes').innerHTML = contador;
+}
+
+// Funcion editar publicaciones
+/* export const editPosts = (id, input) => {
+  const fireStoreCollection = firebase.firestore().collection('posts');
+  return fireStoreCollection.doc(id).update({
+    Contents: input,
+  });
+}; */
+
+// creacion de coleccion de likes
+export const likesPost = (post, uid) => {
+  db.collection('likes').add({
+    DocIdPost: post,
+    Uid: uid,
+  });
+};
+// se obtiene los likes
+export const getLikesPost = (doc) => {
+  db.collection('likes').where('DocIdPost', '==', doc).get();
+};
+
+// Funcion eliminar likes
+export const deleteLikes = (id) => {
+  db.collection('likes').doc(id).delete();
+};
