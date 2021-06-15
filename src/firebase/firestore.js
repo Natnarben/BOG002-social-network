@@ -5,6 +5,8 @@ export const savePublication = (descripcion) => {
   const userAuthor = auth.currentUser;
   const name = userAuthor.displayName;
   const uid = userAuthor.uid;
+  const id = db;
+  console.log(id);
   db.collection('publications').add({
     descripcion,
     name,

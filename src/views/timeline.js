@@ -19,7 +19,7 @@ export function timeLine() {
   </nav>
   <form id="formPost" class="formPost">
     <div>
-      <input id="inputPost" class="inputPost" type="text" placeholder="¿Qué te gustaría compartir hoy?" autofocus>
+      <input id="inputPost" class="inputPost" type="text" placeholder="¿Qué te gustaría compartir hoy?" autofocus required>
       <div>
         <br>
         <button type="submit" id="btnPost" class="btnPost">Publicar</button>
@@ -60,13 +60,14 @@ export function printPublication() {
       const postData = doc.data();
       const postId = postData.uid;
       const userUid = auth.currentUser.uid;
-      console.log(postId);
-      console.log(postData);
+      const id = postData.id;
       let btnDelete = '';
       let btnEdit = '';
+      // console.log(postData);
 
       if (postId === userUid) {
-        btnDelete = `<button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>`;
+        btnDelete = `<button type="button" class="btn-delete" data-id="${postData.uid}">Eliminar</button>`;
+        btnEdit = `<button type="button" class="btn-edit" data-id="${postData.uid}">Editar</button>`;
       }
 
       containerPublication.innerHTML += `
@@ -76,6 +77,7 @@ export function printPublication() {
         <div class="actions-space">
           <button class="likes" id="likes"><p><span id="showLikes"></span> Me gusta</p></button>
           ${btnDelete}
+          ${btnEdit}
           </div>  
       </div>`;
       return containerPublication;
@@ -83,19 +85,16 @@ export function printPublication() {
   });
 }
 
-// if uid === currentUser -> cree los botons
-//  boton de like
-
-// export function deletePost() {
-//   const btnDelete = document.querySelectorAll('.btn-delete');
-//   console.log(btnDelete);
-//   btnDelete.forEach((btn) => {
-//     btn.addEventListener('click', (event) => {
-//       console.log('Hola estoy funcionando', event);
-//       // await deletePublication(event.target.dataset.id); async
-//     });
-//   });
-// }
+export function deletePost() {
+  const btnDelete = document.getElementsByClassName('btn-delete');
+  console.log(btnDelete);
+  btnDelete.forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+      console.log('Hola estoy funcionando', event);
+      // await deletePublication(event.target.dataset.id); async
+    });
+  });
+}
 // funcion para pintarPublicación y llamo router
 // plataformas gratis
 // separar funciones
