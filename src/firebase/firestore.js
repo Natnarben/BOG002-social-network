@@ -5,7 +5,6 @@ export const savePublication = (descripcion) => {
   const userAuthor = auth.currentUser;
   const name = userAuthor.displayName;
   const uid = userAuthor.uid;
-  console.log(uid);
   db.collection('publications').add({
     descripcion,
     name,
@@ -21,3 +20,11 @@ export const onGetPublication = (callback) => {
 export const deletePublication = (id) => {
   db.collection('publications').doc(id).delete();
 };
+
+// export const getPublicationsId = (id) => {
+//   db.collection('publications').doc(id).get();
+// };
+
+// const doc = getPublicationsId(event.target.dataset.id);
+//   //    const postData = doc.data();
+//       // postData.id = doc.id;

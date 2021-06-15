@@ -1,34 +1,36 @@
 import { signOut } from '../firebase/firebaseAuth.js';
 import { savePublication, onGetPublication, deletePublication } from '../firebase/firestore.js';
 
+const auth = firebase.auth();
+
 export function timeLine() {
   const htmlTimeLine = `
-    <section class="navigationBar">
-      <div >
-        <img src="/images/MeowBoxMarcaMorada.png" alt=""   width="25%" >
+  <nav class="navigationBar">
+    <div>
+      <img src="../src/images/MeowBoxMarcaMorada.png" alt="" width="20%" href="#/timeLine">
+    </div>
+    <div class="dropdown">
+      <h2 class="dropbtn"><img src="../src/images/Perfil3.png" width="25%" class="icon-profile"></h2>
+      <div class="dropdown-content">
+        <a href="#/profile">Perfil</a>
+        <a href="" id ="logOut">Cerrar Sesión</a> 
       </div>
-      <div class="dropdown">
-        <h2 class="dropbtn"><img src="/images/perfil2.png" alt="navegación" width="40%"></h2>
-        <div class="dropdown-content">
-            <a href="#/profile">Perfil</a>
-            <a id="logOut" href="#/logIn">Cerrar Sesión</a>
-        </div>
+    </div> 
+  </nav>
+  <form id="formPost" class="formPost">
+    <div>
+      <input id="inputPost" class="inputPost" type="text" placeholder="¿Qué te gustaría compartir hoy?" autofocus>
+      <div>
+        <br>
+        <button type="submit" id="btnPost" class="btnPost">Publicar</button>
       </div>
-    </section>
-    <section>
-      <form id="formPost">
-        <div>
-          <textarea name="" id="inputPost" rows="3" placeholder="¿Qué te gustaría compartir hoy?"></textarea>
-        </div>
-        <div>  
-          <button type="submit" id="btnPost">Compartir</button>
-        </div>
-      </form>
-    </section>
-    <section id="containerPublication"></section>
-    `;
+    </div>      
+  </form>
+  <section id="containerPublication">
+  </section>`;
   const timeLineView = document.createElement('section');
   timeLineView.innerHTML = htmlTimeLine;
+  timeLineView.className = 'timeLineSection';
   return timeLineView;
 }
 
@@ -56,34 +58,44 @@ export function printPublication() {
     containerPublication.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const postData = doc.data();
-      postData.id = doc.id;
+      const postId = postData.uid;
+      const userUid = auth.currentUser.uid;
+      console.log(postId);
+      console.log(postData);
+      let btnDelete = '';
+      let btnEdit = '';
+
+      if (postId === userUid) {
+        btnDelete = `<button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>`;
+      }
 
       containerPublication.innerHTML += `
-      <div>
-        <p id='user-name'>${postData.name}</p>
-        <div>
-        ${postData.descripcion}
-        <div>
-          <button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>
-          <button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>
-        </div>
-      </div>
+      <div class="each-publication">
+        <p id="user-name">${postData.name}</p>
+        <p class="descripcion-space">${postData.descripcion}</p>
+        <div class="actions-space">
+          <button class="likes" id="likes"><p><span id="showLikes"></span> Me gusta</p></button>
+          ${btnDelete}
+          </div>  
       </div>`;
       return containerPublication;
     });
   });
 }
 
-export function deletePost() {
-  const btnDelete = document.querySelectorAll('.btn-delete');
-  console.log(btnDelete);
-  btnDelete.forEach((btn) => {
-    btn.addEventListener('click', (event) => {
-      console.log('Hola estoy funcionando', event);
-      // await deletePublication(event.target.dataset.id); async
-    });
-  });
-}
+// if uid === currentUser -> cree los botons
+//  boton de like
+
+// export function deletePost() {
+//   const btnDelete = document.querySelectorAll('.btn-delete');
+//   console.log(btnDelete);
+//   btnDelete.forEach((btn) => {
+//     btn.addEventListener('click', (event) => {
+//       console.log('Hola estoy funcionando', event);
+//       // await deletePublication(event.target.dataset.id); async
+//     });
+//   });
+// }
 // funcion para pintarPublicación y llamo router
 // plataformas gratis
 // separar funciones
