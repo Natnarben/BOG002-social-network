@@ -1,5 +1,6 @@
 import {
-  profileSignOut, savePublication, onGetPublication, deletePublication,
+  profileSignOut, savePublication, onGetPublication, deletePublication, getPublicationsId,
+  updatePost,
 } from '../firebase/firebaseAuth.js';
 
 const auth = firebase.auth();
@@ -20,10 +21,11 @@ export function timeLine() {
     </nav>
     <form id="formPost" class="formPost">
       <div>
-        <input id="inputPost" class="inputPost" type="text" placeholder="¿Qué te gustaría compartir hoy?" autofocus>
+      <input id="input-Post" class="input-Post" type="text" placeholder="¿Qué te gustaría compartir hoy?" autofocus required>
+
         <div>
         <br>
-          <button type="submit" id="btnPost" class="btnPost">Publicar</button>
+          <button type="submit" id="btn-Post" class="btnPost">Publicar</button>
         </div>
       </div>      
     </form>
@@ -52,21 +54,34 @@ export function dropdownMenu() {
 
 // Funcion para GUARDAR descripcion en FIREBASE
 
+let editStatus = false;
+let id = '';
+
 export function eventPost() {
-  const postButton = document.getElementById('btnPost');
+  const postButton = document.getElementById('btn-Post');
   const formPost = document.getElementById('formPost');
 
   postButton.addEventListener('click', async (event) => {
     event.preventDefault();
-    const publications = document.getElementById('inputPost');
-    // if (!editStatus) {
-    await savePublication(publications.value);
+    const publications = document.getElementById('input-Post');
+    if (!editStatus) {
+      await savePublication(publications.value);
+    } else {
+      await updatePost(id, {
+        descripcion: publications.value,
+      });
+
+      editStatus = false;
+      id = '';
+      formPost['btn-Post'].innerHTML = 'Publicar';
+    }
     formPost.reset();
+    publications.focus();
   });
 }
-// funcion para imprimir en pantalla lo obtenido de FIREBASE
 
-export function EventoEliminar() {
+// funcion para imprimir en pantalla lo obtenido de FIREBASE
+function eventDelete() {
   const btnDeletes = document.querySelectorAll('.btn-delete');
   btnDeletes.forEach((btn) => {
     btn.addEventListener('click', async (e) => {
@@ -74,6 +89,22 @@ export function EventoEliminar() {
     });
   });
 }
+function eventEdit() {
+  const btnEdit = document.querySelectorAll('.btn-edit');
+  btnEdit.forEach((btn) => {
+    const formPost = document.getElementById('formPost');
+    btn.addEventListener('click', async (e) => {
+      const editar = await getPublicationsId(e.target.dataset.id);
+      const post = editar.data();
+      console.log(post);
+      editStatus = true;
+      id = editar.id;
+      formPost['input-Post'].value = post.descripcion;
+      formPost['btn-Post'].innerHTML = 'Guardar';
+    });
+  });
+}
+
 export function printPublication() {
   const containerPublication = document.getElementById('containerPublication');
   onGetPublication((querySnapshot) => {
@@ -100,9 +131,12 @@ export function printPublication() {
           <button class="likes" id="likes"><p><span id="showLikes"></span> Me gusta</p></button>
           ${btnDelete}
           ${btnEdit}
+          
           </div>  
       </div>`;
     });
-    EventoEliminar();
+
+    eventDelete();
+    eventEdit();
   });
 }

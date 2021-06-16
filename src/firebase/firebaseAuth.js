@@ -103,9 +103,8 @@ export const deletePublication = (id) => {
 };
 
 // Obtener id
-export const getPublicationsId = (id) => {
-  db.collection('publications').doc(id).get();
-};
+export const getPublicationsId = (id) => db.collection('publications').doc(id).get();
+
 // editar publicacion
 export const updatePost = (id, updatedPost) => {
   db.collection('publications').doc(id).update(updatedPost);
