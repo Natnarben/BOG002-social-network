@@ -1,5 +1,7 @@
 import { signOut } from '../firebase/firebaseAuth.js';
-import { savePublication, onGetPublication, deletePublication } from '../firebase/firestore.js';
+import {
+  savePublication, onGetPublication, deletePublication, getPublicationsId, updatePost, saveLike,
+} from '../firebase/firestore.js';
 
 const auth = firebase.auth();
 
@@ -42,13 +44,64 @@ export function signOutEvent() {
   });
 }
 
+let editStatus = false;
+let id = '';
 export function eventPost() {
-  const postButton = document.getElementById('formPost');
-  postButton.addEventListener('submit', async (event) => {
+  const postButton = document.getElementById('btnPost');
+  const formPost = document.getElementById('formPost');
+  postButton.addEventListener('click', async (event) => {
     event.preventDefault();
     const publications = document.getElementById('inputPost');
-    await savePublication(publications.value);
-    postButton.reset();
+    if (!editStatus) {
+      await savePublication(publications.value);
+    } else {
+      await updatePost(id, {
+        descripcion: publications.value,
+      });
+      editStatus = false;
+      id = '';
+      // eslint-disable-next-line dot-notation
+      formPost['btnPost'].innerHTML = 'Publicar';
+    }
+    formPost.reset();
+  });
+}
+
+function eventDelete() {
+  const btnDeletes = document.querySelectorAll('.btn-delete');
+  btnDeletes.forEach((btn) => {
+    btn.addEventListener('click', async (e) => {
+      await deletePublication(e.target.dataset.id);
+    });
+  });
+}
+
+function eventEdit() {
+  const btnEdits = document.querySelectorAll('.btn-edit');
+  btnEdits.forEach((btn) => {
+    const formPost = document.getElementById('formPost');
+    btn.addEventListener('click', async (e) => {
+      const edit = await getPublicationsId(e.target.dataset.id);
+      const post = edit.data();
+      console.log(edit);
+      editStatus = true;
+      id = edit.id;
+      // eslint-disable-next-line dot-notation
+      formPost['inputPost'].value = post.descripcion;
+      // eslint-disable-next-line dot-notation
+      formPost['btnPost'].innerHTML = 'Guardar';
+    });
+  });
+}
+
+function likesEvent() {
+  const buttonLikes = document.querySelectorAll('.btnLikes');
+  buttonLikes.forEach((element) => {
+    element.addEventListener('click', async (e) => {
+      const infoPublication = await getPublicationsId(e.target.dataset.id);
+      const infoPost = infoPublication.data();
+      console.log(infoPublication, infoPost);
+    });
   });
 }
 
@@ -60,14 +113,14 @@ export function printPublication() {
       const postData = doc.data();
       const postId = postData.uid;
       const userUid = auth.currentUser.uid;
-      const id = postData.id;
+      postData.id = doc.id;
       let btnDelete = '';
       let btnEdit = '';
       // console.log(postData);
 
       if (postId === userUid) {
-        btnDelete = `<button type="button" class="btn-delete" data-id="${postData.uid}">Eliminar</button>`;
-        btnEdit = `<button type="button" class="btn-edit" data-id="${postData.uid}">Editar</button>`;
+        btnDelete = `<button type="button" class="btn-delete" data-id="${postData.id}">Eliminar</button>`;
+        btnEdit = `<button type="button" class="btn-edit" data-id="${postData.id}">Editar</button>`;
       }
 
       containerPublication.innerHTML += `
@@ -75,26 +128,19 @@ export function printPublication() {
         <p id="user-name">${postData.name}</p>
         <p class="descripcion-space">${postData.descripcion}</p>
         <div class="actions-space">
-          <button class="likes" id="likes"><p><span id="showLikes"></span> Me gusta</p></button>
+          <button class="btnLikes" id="likes"><p><span id="showLikes"></span> Me gusta</p></button>
+          <p id="likesCounter">0</p>
           ${btnDelete}
           ${btnEdit}
           </div>  
       </div>`;
       return containerPublication;
     });
+    eventDelete();
+    eventEdit();
+    likesEvent();
   });
 }
 
-export function deletePost() {
-  const btnDelete = document.getElementsByClassName('btn-delete');
-  console.log(btnDelete);
-  btnDelete.forEach((btn) => {
-    btn.addEventListener('click', (event) => {
-      console.log('Hola estoy funcionando', event);
-      // await deletePublication(event.target.dataset.id); async
-    });
-  });
-}
-// funcion para pintarPublicación y llamo router
 // plataformas gratis
 // separar funciones
